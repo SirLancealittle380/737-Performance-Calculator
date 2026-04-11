@@ -319,8 +319,27 @@ function switchTab(tab) {
 }
 
 function render() {
+  // Save focused input state so typing isn't interrupted by re-render
+  const ae = document.activeElement;
+  let focusIdx = -1, selStart = 0, selEnd = 0;
+  if (ae && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA')) {
+    const all = [...document.querySelectorAll('#content input, #content textarea')];
+    focusIdx = all.indexOf(ae);
+    try { selStart = ae.selectionStart; selEnd = ae.selectionEnd; } catch(e) {}
+  }
+
   const fns = { preflight: renderPreflight, dpa: renderDPA, fuel: renderFuel, tools: renderTools, ref: renderRef };
   document.getElementById('content').innerHTML = `<div class="fade-up">${(fns[S.tab] || renderPreflight)()}</div>`;
+
+  // Restore focus and cursor position
+  if (focusIdx >= 0) {
+    const all = [...document.querySelectorAll('#content input, #content textarea')];
+    const el = all[focusIdx];
+    if (el) {
+      el.focus();
+      try { el.setSelectionRange(selStart, selEnd); } catch(e) {}
+    }
+  }
 }
 
 // ══════════════════════════════════════════════════════
