@@ -14,7 +14,6 @@
 
     :root {
       --red: #CC0000;
-      --dark-red: #990000;
       --green: #166534;
       --green-bg: #dcfce7;
       --amber: #92400e;
@@ -32,105 +31,42 @@
     }
 
     html, body { height: 100%; overflow: hidden; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); }
     #app { display: flex; flex-direction: column; height: 100vh; }
 
-    /* ─── HEADER ─── */
-    .header {
-      background: var(--red);
-      color: white;
-      height: var(--header-h);
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
-      gap: 12px;
-      flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-      position: relative;
-      z-index: 10;
-    }
-    .header-logo {
-      width: 38px; height: 38px; border-radius: 50%;
-      background: white; display: flex; align-items: center; justify-content: center;
-      font-size: 20px; font-weight: 900; color: var(--red); flex-shrink: 0;
-      font-family: Georgia, 'Times New Roman', serif; letter-spacing: -1px;
-    }
+    /* HEADER */
+    .header { background: var(--red); color: white; height: var(--header-h); display: flex; align-items: center; padding: 0 16px; gap: 12px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+    .header-logo { width: 38px; height: 38px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: var(--red); flex-shrink: 0; font-family: Georgia, serif; }
     .header-title { font-size: 17px; font-weight: 700; line-height: 1.2; }
     .header-sub { font-size: 11px; opacity: 0.8; margin-top: 2px; }
 
-    /* ─── SCROLL AREA ─── */
-    .scroll-area {
-      flex: 1;
-      overflow-y: auto;
-      padding: 14px 14px calc(var(--nav-h) + 14px);
-      -webkit-overflow-scrolling: touch;
-    }
+    /* SCROLL AREA */
+    .scroll-area { flex: 1; overflow-y: auto; padding: 14px 14px calc(var(--nav-h) + 14px); -webkit-overflow-scrolling: touch; }
     .scroll-area::-webkit-scrollbar { display: none; }
 
-    /* ─── BOTTOM NAV ─── */
-    .bottom-nav {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      height: var(--nav-h);
-      background: white;
-      border-top: 1px solid var(--border);
-      display: flex;
-      z-index: 100;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.06);
-    }
-    .nav-btn {
-      flex: 1; background: none; border: none; cursor: pointer;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 3px; font-size: 10px; font-weight: 600; color: var(--text-muted);
-      padding: 6px 4px; transition: color 0.15s;
-    }
+    /* BOTTOM NAV — 5 tabs */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav-h); background: white; border-top: 1px solid var(--border); display: flex; z-index: 100; box-shadow: 0 -2px 8px rgba(0,0,0,0.06); }
+    .nav-btn { flex: 1; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 9.5px; font-weight: 600; color: var(--text-muted); padding: 4px 2px; transition: color 0.15s; }
     .nav-btn.active { color: var(--red); }
-    .nav-btn .nav-icon { font-size: 22px; line-height: 1; }
+    .nav-btn .nav-icon { font-size: 20px; line-height: 1; }
 
-    /* ─── CARDS ─── */
-    .card {
-      background: var(--card);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    }
-    .card-label {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
-      color: var(--red); text-transform: uppercase; margin-bottom: 12px;
-    }
+    /* CARDS */
+    .card { background: var(--card); border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .card-label { font-size: 11px; font-weight: 700; letter-spacing: 0.8px; color: var(--red); text-transform: uppercase; margin-bottom: 12px; }
 
-    /* ─── WIZARD ─── */
-    .phase-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: #fff1f2; color: var(--red);
-      border-radius: 20px; padding: 3px 10px;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
-      margin-bottom: 14px;
-    }
+    /* WIZARD */
+    .phase-badge { display: inline-flex; align-items: center; gap: 5px; background: #fff1f2; color: var(--red); border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; margin-bottom: 14px; }
     .wiz-question { font-size: 16px; font-weight: 700; line-height: 1.4; margin-bottom: 6px; }
     .wiz-hint { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; }
     .wiz-options { display: flex; flex-direction: column; gap: 9px; }
-    .opt-btn {
-      padding: 13px 14px; border: 2px solid var(--border);
-      border-radius: 12px; background: white; cursor: pointer;
-      text-align: left; transition: border-color 0.15s, background 0.15s;
-    }
+    .opt-btn { padding: 13px 14px; border: 2px solid var(--border); border-radius: 12px; background: white; cursor: pointer; text-align: left; transition: border-color 0.15s, background 0.15s; }
     .opt-btn:active { background: #f8fafc; }
     .opt-btn.chosen { border-color: var(--red); background: #fff5f5; }
     .opt-main { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
     .opt-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
 
-    /* ─── RESULTS ─── */
-    .result-box {
-      border-radius: 12px; padding: 15px; margin-bottom: 12px;
-      border-left: 5px solid;
-    }
+    /* RESULTS */
+    .result-box { border-radius: 12px; padding: 15px; margin-bottom: 12px; border-left: 5px solid; }
     .result-box.green { background: var(--green-bg); border-color: var(--green); }
     .result-box.amber { background: var(--amber-bg); border-color: #d97706; }
     .result-box.red   { background: var(--red-bg);   border-color: #dc2626; }
@@ -139,49 +75,39 @@
     .result-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
     .result-body  { font-size: 13px; line-height: 1.6; color: #374151; }
 
-    /* ─── REQUIREMENT LIST ─── */
+    /* REQUIREMENT LIST */
     .req-list { margin-top: 14px; }
     .req-list-title { font-size: 13px; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.4px; }
     .req-item { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; line-height: 1.5; }
     .req-item:last-child { border-bottom: none; }
     .req-icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
 
-    /* ─── INFO BOX ─── */
-    .info-box {
-      background: #f0f9ff; border: 1px solid #bae6fd;
-      border-radius: 10px; padding: 11px 13px;
-      font-size: 12px; color: #075985; line-height: 1.5; margin-top: 12px;
-    }
+    /* INFO BOX */
+    .info-box { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; padding: 11px 13px; font-size: 12px; color: #075985; line-height: 1.5; margin-top: 12px; }
+    .warn-box  { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 10px; padding: 11px 13px; font-size: 12px; color: #92400e; line-height: 1.5; margin-top: 12px; }
 
-    /* ─── BUTTONS ─── */
+    /* BUTTONS */
     .btn { padding: 13px 20px; border-radius: 12px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; width: 100%; margin-top: 10px; transition: opacity 0.15s; }
     .btn:active { opacity: 0.75; }
     .btn-primary { background: var(--red); color: white; }
     .btn-ghost { background: #f1f5f9; color: var(--text); }
 
-    /* ─── FUEL CALCULATOR ─── */
+    /* FORM FIELDS */
     .field-group { margin-bottom: 14px; }
     .field-label { font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 7px; display: block; }
     .field-row { display: flex; align-items: center; gap: 8px; }
-    .field-input {
-      flex: 1; padding: 12px 14px; border: 2px solid var(--border);
-      border-radius: 10px; font-size: 16px; background: white;
-      color: var(--text); outline: none; transition: border-color 0.15s;
-      -webkit-appearance: none;
-    }
+    .field-input { flex: 1; padding: 12px 14px; border: 2px solid var(--border); border-radius: 10px; font-size: 16px; background: white; color: var(--text); outline: none; transition: border-color 0.15s; -webkit-appearance: none; }
     .field-input:focus { border-color: var(--red); }
     .field-unit { font-size: 13px; color: var(--text-muted); white-space: nowrap; }
     .field-hint { font-size: 11px; color: #94a3b8; margin-top: 5px; }
+    .field-input.time-input { max-width: 110px; flex: none; }
 
+    /* TOGGLE BUTTONS */
     .toggle-row { display: flex; gap: 7px; flex-wrap: wrap; }
-    .tog-btn {
-      padding: 9px 14px; border: 2px solid var(--border); border-radius: 9px;
-      background: white; cursor: pointer; font-size: 13px; font-weight: 600;
-      color: var(--text-muted); transition: border-color 0.15s, background 0.15s, color 0.15s;
-    }
+    .tog-btn { padding: 9px 14px; border: 2px solid var(--border); border-radius: 9px; background: white; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text-muted); transition: border-color 0.15s, background 0.15s, color 0.15s; }
     .tog-btn.on { border-color: var(--red); background: #fff5f5; color: var(--red); }
 
-    /* ─── FUEL BREAKDOWN ─── */
+    /* FUEL BREAKDOWN */
     .fuel-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
     .fuel-row:last-child { border-bottom: none; border-top: 2px solid #e2e8f0; margin-top: 6px; padding-top: 14px; }
     .fuel-name { font-size: 14px; flex: 1; }
@@ -191,46 +117,61 @@
     .fuel-row:last-child .fuel-name { font-weight: 700; font-size: 15px; }
     .fuel-row:last-child .fuel-amt { font-size: 18px; }
 
-    /* ─── REFERENCE ACCORDION ─── */
-    .acc-btn {
-      width: 100%; padding: 15px 16px; background: none; border: none;
-      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-      font-size: 14px; font-weight: 600; color: var(--text); text-align: left;
-    }
+    /* AIRPORT SELECTOR */
+    .airport-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .airport-scroll::-webkit-scrollbar { display: none; }
+    .airport-chip { flex-shrink: 0; padding: 7px 12px; border: 2px solid var(--border); border-radius: 20px; background: white; cursor: pointer; font-size: 12px; font-weight: 700; color: var(--text-muted); transition: all 0.15s; white-space: nowrap; }
+    .airport-chip.on { border-color: var(--red); background: #fff5f5; color: var(--red); }
+    .airport-group-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); margin: 10px 0 6px; }
+    .airport-info-box { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 11px 13px; margin-top: 10px; font-size: 13px; line-height: 1.55; }
+    .airport-info-box .ai-name { font-weight: 700; margin-bottom: 4px; }
+    .airport-info-box .ai-type { font-size: 12px; }
+
+    /* REFERENCE ACCORDION */
+    .acc-btn { width: 100%; padding: 15px 16px; background: none; border: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 600; color: var(--text); text-align: left; }
     .acc-chevron { font-size: 18px; color: var(--text-muted); flex-shrink: 0; transition: transform 0.2s; }
     .acc-chevron.open { transform: rotate(180deg); }
     .acc-body { padding: 0 16px 15px; border-top: 1px solid var(--border); }
 
+    /* REFERENCE ITEMS */
     .ref-item { margin-bottom: 13px; }
     .ref-term { font-size: 13px; font-weight: 700; margin-bottom: 3px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
     .ref-badge { display: inline-block; background: var(--red); color: white; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; }
     .ref-def { font-size: 12px; color: var(--text-muted); line-height: 1.55; }
 
-    .minima-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 6px; }
-    .minima-table th { padding: 7px 9px; background: #f8fafc; border: 1px solid var(--border); font-size: 11px; font-weight: 700; color: var(--text-muted); text-align: left; }
-    .minima-table td { padding: 8px 9px; border: 1px solid var(--border); vertical-align: top; line-height: 1.45; }
+    /* TABLES */
+    .mini-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 6px; }
+    .mini-table th { padding: 7px 9px; background: #f8fafc; border: 1px solid var(--border); font-size: 11px; font-weight: 700; color: var(--text-muted); text-align: left; }
+    .mini-table td { padding: 8px 9px; border: 1px solid var(--border); vertical-align: top; line-height: 1.45; }
     .td-dm  { background: #dbeafe; font-weight: 700; }
     .td-rdm { background: #dcfce7; font-weight: 700; }
     .td-qm  { background: #fef9c3; font-weight: 700; }
     .td-lm  { background: #f8fafc; font-weight: 700; }
 
-    /* ─── ANIMATION ─── */
+    /* RDM RESULT */
+    .rdm-result { background: #f0fdf4; border: 2px solid #86efac; border-radius: 12px; padding: 16px; margin-top: 12px; text-align: center; }
+    .rdm-value { font-size: 28px; font-weight: 900; color: #15803d; letter-spacing: -0.5px; }
+    .rdm-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+    .rdm-na { background: var(--red-bg); border: 2px solid #fca5a5; }
+    .rdm-na .rdm-value { color: #dc2626; font-size: 22px; }
+
+    /* PROB RESULT */
+    .prob-result { border-radius: 12px; padding: 16px; margin-top: 12px; }
+    .prob-not-apply { background: var(--green-bg); border: 2px solid #86efac; }
+    .prob-apply { background: var(--red-bg); border: 2px solid #fca5a5; }
+    .prob-title { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+    .prob-detail { font-size: 13px; line-height: 1.55; color: #374151; }
+
+    /* ANIMATION */
     @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
     .fade-up { animation: fadeUp 0.2s ease-out; }
 
-    /* ─── DISCLAIMER ─── */
-    .disclaimer {
-      border-radius: 10px; padding: 10px 13px; margin-bottom: 10px;
-      background: #fff7ed; border: 1px solid #fed7aa;
-      font-size: 12px; color: #9a3412; line-height: 1.5;
-    }
+    /* DISCLAIMER */
+    .disclaimer { border-radius: 10px; padding: 10px 13px; margin-bottom: 10px; background: #fff7ed; border: 1px solid #fed7aa; font-size: 12px; color: #9a3412; line-height: 1.5; }
 
-    /* ─── DARK MODE ─── */
+    /* DARK MODE */
     @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0f172a; --card: #1e293b; --border: #334155;
-        --text: #f1f5f9; --text-muted: #94a3b8;
-      }
+      :root { --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #f1f5f9; --text-muted: #94a3b8; }
       .opt-btn { background: var(--card); }
       .opt-btn.chosen { background: #3b0606; }
       .bottom-nav { background: #1e293b; }
@@ -238,12 +179,17 @@
       .tog-btn.on { background: #3b0606; }
       .field-input { background: var(--card); color: var(--text); }
       .btn-ghost { background: #334155; }
-      .minima-table th { background: #334155; }
-      .minima-table td { background: var(--card); }
+      .mini-table th { background: #334155; }
+      .mini-table td { background: var(--card); }
       .acc-btn { color: var(--text); }
       .phase-badge { background: #3b0606; }
+      .airport-chip { background: var(--card); }
+      .airport-chip.on { background: #3b0606; }
+      .airport-info-box { background: #0f172a; }
+      .rdm-result { background: #052e16; border-color: #166534; }
       .disclaimer { background: #431407; border-color: #7c2d12; color: #fed7aa; }
       .info-box { background: #0c2a3d; border-color: #164e63; color: #7dd3fc; }
+      .warn-box { background: #451a03; border-color: #92400e; color: #fcd34d; }
     }
   </style>
 </head>
@@ -257,422 +203,294 @@
     </div>
   </header>
 
-  <div class="scroll-area" id="content">
-    <!-- rendered by JS -->
-  </div>
+  <div class="scroll-area" id="content"></div>
 
   <nav class="bottom-nav">
-    <button class="nav-btn active" data-tab="preflight" onclick="switchTab('preflight')">
-      <span class="nav-icon">📋</span><span>Preflight</span>
-    </button>
-    <button class="nav-btn" data-tab="dpa" onclick="switchTab('dpa')">
-      <span class="nav-icon">✈️</span><span>At DPA</span>
-    </button>
-    <button class="nav-btn" data-tab="fuel" onclick="switchTab('fuel')">
-      <span class="nav-icon">⛽</span><span>Fuel Calc</span>
-    </button>
-    <button class="nav-btn" data-tab="ref" onclick="switchTab('ref')">
-      <span class="nav-icon">📚</span><span>Reference</span>
-    </button>
+    <button class="nav-btn active" data-tab="preflight" onclick="switchTab('preflight')"><span class="nav-icon">📋</span><span>Preflight</span></button>
+    <button class="nav-btn" data-tab="dpa"       onclick="switchTab('dpa')">      <span class="nav-icon">✈️</span><span>At DPA</span></button>
+    <button class="nav-btn" data-tab="fuel"      onclick="switchTab('fuel')">     <span class="nav-icon">⛽</span><span>Fuel</span></button>
+    <button class="nav-btn" data-tab="tools"     onclick="switchTab('tools')">    <span class="nav-icon">🛠️</span><span>Tools</span></button>
+    <button class="nav-btn" data-tab="ref"       onclick="switchTab('ref')">      <span class="nav-icon">📚</span><span>Ref</span></button>
   </nav>
 </div>
 
 <script>
-// ══════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // STATE
-// ══════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 const S = {
   tab: 'preflight',
-
-  // Preflight wizard
-  pf: { step: 0, answers: {} },
-
-  // DPA wizard
-  dpa: { step: 0, answers: {} },
-
-  // Fuel calculator
-  fuel: {
-    frf: '', destType: null, altCarried: null,
-    altFuel: '', tripFuel: '', contingency: '5'
-  },
-
-  // Reference
-  ref: { expanded: null }
+  pf:   { step: 0, answers: {} },
+  dpa:  { step: 0, answers: {} },
+  fuel: { frf: '', destType: null, altCarried: null, altFuel: '', tripFuel: '', contingency: '5', airport: null },
+  rdm:  { runways: null, catConfig: null, lmCeiling: '', qmCeiling: '', qmVis: '', canada: null },
+  prob: { isTaf3: null, tafIssue: '', eta: '', etouType: 'standard' },
+  ap:   { selected: null },
+  ref:  { expanded: null }
 };
 
-// ══════════════════════════════════════════════
-// ROUTER
-// ══════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// AIRPORT DATA
+// ══════════════════════════════════════════════════════
+const AIRPORTS = [
+  // Domestic
+  { g:'domestic', icao:'YSSY', iata:'SYD', name:'Sydney',        type:'domestic',    holding25:false, runwayDesc:'4 runways (16L/16R/34L/34R) — separate pairs', approaches:'ILS CAT III (16L/16R), ILS CAT II/I (34L/34R)', dmNote:'CAT III / CAT II — check EFF+', qmNote:'N/A as destination alternate (domestic)', note:'Largest QF hub. Separate runway pairs allow multi-runway DM. No 25 min holding.' },
+  { g:'domestic', icao:'YMML', iata:'MEL', name:'Melbourne',     type:'domestic',    holding25:false, runwayDesc:'Multiple runways (16/27/34/09)', approaches:'ILS CAT I (main runways), CAT II on 16/34', dmNote:'CAT I/II — check EFF+', qmNote:'N/A as destination alternate (domestic)', note:'Multiple separate runways. No 25 min holding.' },
+  { g:'domestic', icao:'YBBN', iata:'BNE', name:'Brisbane',      type:'domestic',    holding25:false, runwayDesc:'Parallel runways (01L/01R and 19L/19R)', approaches:'ILS CAT I on main runways', dmNote:'CAT I — check EFF+', qmNote:'N/A as destination alternate (domestic)', note:'Parallel pairs provide separate runway options. No 25 min holding.' },
+  { g:'domestic', icao:'YPAD', iata:'ADL', name:'Adelaide',      type:'domestic',    holding25:false, runwayDesc:'2 runways (05/23 and 12/30)', approaches:'ILS CAT I', dmNote:'CAT I — check EFF+', qmNote:'N/A as destination alternate (domestic)', note:'Multiple runway options. No 25 min holding.' },
+  { g:'domestic', icao:'YPPH', iata:'PER', name:'Perth',         type:'domestic',    holding25:false, runwayDesc:'2 runways (03/21 and 06/24)', approaches:'ILS CAT I', dmNote:'CAT I — check EFF+', qmNote:'N/A as destination alternate (domestic)', note:'Multiple runway options. No 25 min holding.' },
+  { g:'domestic', icao:'YSCB', iata:'CBR', name:'Canberra',      type:'domestic',    holding25:false, runwayDesc:'2 runways (17/35 and 12/30)', approaches:'ILS CAT I on 17/35; NDB/GNSS on 12/30', dmNote:'CAT I — check EFF+', qmNote:'N/A as destination alternate (domestic)', note:'Strong crosswinds may limit to single runway — assess suitability. Terrain and valley fog can affect minima. No 25 min holding (domestic).' },
+  { g:'domestic', icao:'YMHB', iata:'HBA', name:'Hobart',        type:'domestic',    holding25:false, runwayDesc:'2 runways (12/30 and 18/36)', approaches:'ILS CAT I (12/30); GNSS/VOR (18/36)', dmNote:'CAT I — check EFF+', qmNote:'N/A as destination alternate (domestic)', note:'In practice often limited to one suitable runway due to terrain/wind. No 25 min holding (domestic).' },
+  { g:'domestic', icao:'YBCG', iata:'OOL', name:'Gold Coast',    type:'domestic',    holding25:false, runwayDesc:'Single runway (14/32)', approaches:'ILS CAT I (14); ILS/GNSS (32)', dmNote:'CAT I — check EFF+', qmNote:'N/A as destination alternate (domestic)', note:'Single-runway airport. 25 min holding not required (domestic territory).' },
+  { g:'domestic', icao:'YBCS', iata:'CNS', name:'Cairns',        type:'domestic',    holding25:false, runwayDesc:'2 runways (15/33 and 12/30)', approaches:'ILS CAT I (15/33); GNSS (12/30)', dmNote:'CAT I — check EFF+', qmNote:'N/A as destination alternate (domestic)', note:'No 25 min holding (domestic).' },
+  { g:'domestic', icao:'YBTL', iata:'TSV', name:'Townsville',    type:'domestic',    holding25:false, runwayDesc:'2 runways (01/19 and 07/25)', approaches:'ILS (01/19); GNSS/VOR (07/25)', dmNote:'CAT I — check EFF+', qmNote:'N/A as destination alternate (domestic)', note:'No 25 min holding (domestic).' },
+  { g:'domestic', icao:'YBNA', iata:'BNA', name:'Ballina',       type:'domestic',    holding25:false, runwayDesc:'Single runway (06/24)', approaches:'GNSS/VOR (non-precision)', dmNote:'Non-precision — check EFF+', qmNote:'N/A as destination alternate (domestic)', note:'Single runway, non-precision approaches only. No 25 min holding (domestic).' },
+  // International single-runway (25 min holding applies when no alt)
+  { g:'intl-s',   icao:'NZAA', iata:'AKL', name:'Auckland',      type:'single-intl', holding25:true,  runwayDesc:'2 runways (23L/05R and 05L/23R) — not separate', approaches:'ILS CAT I (23L primary; 05R in use)', dmNote:'CAT I — check EFF+', qmNote:'Check EFF+ top note', note:'25 min holding required when no alternate carried. Runways not \'separate\' per FAM 16.5.4.3. Terrain-sensitive procedures.' },
+  { g:'intl-s',   icao:'NZCH', iata:'CHC', name:'Christchurch',  type:'single-intl', holding25:true,  runwayDesc:'2 runways (02/20 and 11/29) — not separate', approaches:'ILS CAT I (02/20); GNSS (11/29)', dmNote:'CAT I — check EFF+', qmNote:'Check EFF+ top note', note:'25 min holding required when no alternate. Runways not \'separate\' per FAM 16.5.4.3.' },
+  { g:'intl-s',   icao:'NZWN', iata:'WLG', name:'Wellington',    type:'single-intl', holding25:true,  runwayDesc:'2 runways (16/34 and 07/25) — wind sensitive', approaches:'ILS (16/34); GNSS (07/25)', dmNote:'CAT I — check EFF+', qmNote:'Check EFF+ top note', note:'25 min holding required when no alternate. Strong winds frequently limit to single runway. Challenging terrain approaches.' },
+  { g:'intl-s',   icao:'WADD', iata:'DPS', name:'Bali (Denpasar)',type:'single-intl', holding25:true,  runwayDesc:'2 runways (09/27) — effectively single direction', approaches:'ILS (09/27)', dmNote:'CAT I — check EFF+', qmNote:'Check EFF+ top note', note:'25 min holding required when no alternate. Monsoon weather can significantly affect minima.' },
+  { g:'intl-s',   icao:'NFFN', iata:'NAN', name:'Nadi',          type:'single-intl', holding25:true,  runwayDesc:'2 runways (02/20 and 09/27) — not separate', approaches:'ILS (02); VOR/GNSS (others)', dmNote:'CAT I — check EFF+', qmNote:'Check EFF+ top note', note:'25 min holding required when no alternate. Not \'separate\' per FAM 16.5.4.3.' },
+  { g:'intl-s',   icao:'NVVV', iata:'VLI', name:'Port Vila',     type:'single-intl', holding25:true,  runwayDesc:'Single runway (11/29)', approaches:'ILS/GNSS (11); GNSS (29)', dmNote:'Check EFF+', qmNote:'Check EFF+ top note', note:'25 min holding required when no alternate. Significant terrain on approach.' },
+  { g:'intl-s',   icao:'NSFA', iata:'APW', name:'Apia',          type:'single-intl', holding25:true,  runwayDesc:'Single runway (08/26)', approaches:'ILS (08); GNSS (26)', dmNote:'Check EFF+', qmNote:'Check EFF+ top note', note:'25 min holding required when no alternate.' },
+  { g:'intl-s',   icao:'NFTF', iata:'TBU', name:"Nuku'alofa",    type:'single-intl', holding25:true,  runwayDesc:'Single runway (11/29)', approaches:'VOR/GNSS (non-precision)', dmNote:'Non-precision — check EFF+', qmNote:'Check EFF+ top note', note:'25 min holding required when no alternate. Non-precision approaches — higher DM likely.' },
+  { g:'intl-s',   icao:'NWWW', iata:'NOU', name:'Noumea',        type:'single-intl', holding25:true,  runwayDesc:'Single runway (11/29)', approaches:'ILS (11); GNSS (29)', dmNote:'Check EFF+', qmNote:'Check EFF+ top note', note:'25 min holding required when no alternate.' },
+  { g:'intl-s',   icao:'PTRO', iata:'ROR', name:'Koror (Palau)', type:'single-intl', holding25:true,  runwayDesc:'Single runway (09/27)', approaches:'ILS (09); GNSS (27)', dmNote:'Check EFF+', qmNote:'Check EFF+ top note', note:'25 min holding required when no alternate.' },
+  { g:'intl-s',   icao:'RPLL', iata:'MNL', name:'Manila',        type:'single-intl', holding25:true,  runwayDesc:'QF: 06/24 approved only (airport has parallel runways)', approaches:'ILS (06/24)', dmNote:'CAT I — check EFF+', qmNote:'Check EFF+ top note', note:'25 min holding required when no alternate. Only runways 06/24 approved for QF ops — effectively single runway for planning.' },
+  { g:'intl-s',   icao:'AYPY', iata:'POM', name:'Port Moresby',  type:'single-intl', holding25:true,  runwayDesc:'QF: 14L/32R approved only', approaches:'ILS (14L/32R)', dmNote:'CAT I — check EFF+', qmNote:'Check EFF+ top note', note:'25 min holding required when no alternate. Only runway 14L/32R approved for QF ops.' },
+  // International multi-runway
+  { g:'intl-m',   icao:'WSSS', iata:'SIN', name:'Singapore',     type:'multi-intl',  holding25:false, runwayDesc:'3 parallel runways (02L/02C/02R and 20L/20C/20R)', approaches:'ILS CAT III (02L/02C; 20L/20C), CAT I (02R/20R)', dmNote:'CAT III/II — check EFF+', qmNote:'Check EFF+ top note', note:'Multiple separate runways — no 25 min holding. Equatorial convective weather can be significant.' },
+  { g:'intl-m',   icao:'VHHH', iata:'HKG', name:'Hong Kong',     type:'multi-intl',  holding25:false, runwayDesc:'2 parallel runways (07L/25R and 07R/25L)', approaches:'ILS CAT I (all runways); RNP AR approaches', dmNote:'CAT I / RNP AR — check EFF+', qmNote:'Check EFF+ top note', note:'Multiple runways — no 25 min holding. Mountainous terrain. RNP AR approaches available. Typhoon-sensitive.' },
+];
+
+// ══════════════════════════════════════════════════════
+// ROUTING
+// ══════════════════════════════════════════════════════
 function switchTab(tab) {
   S.tab = tab;
-  document.querySelectorAll('.nav-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.tab === tab);
-  });
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   render();
 }
 
 function render() {
-  const el = document.getElementById('content');
-  let html = '';
-  switch (S.tab) {
-    case 'preflight': html = renderPreflight(); break;
-    case 'dpa':       html = renderDPA();       break;
-    case 'fuel':      html = renderFuel();      break;
-    case 'ref':       html = renderRef();       break;
-  }
-  el.innerHTML = `<div class="fade-up">${html}</div>`;
+  const fns = { preflight: renderPreflight, dpa: renderDPA, fuel: renderFuel, tools: renderTools, ref: renderRef };
+  document.getElementById('content').innerHTML = `<div class="fade-up">${(fns[S.tab] || renderPreflight)()}</div>`;
 }
 
-// ══════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════
+function fmt(n) { return Math.round(n).toLocaleString(); }
+
+function stepDots(total, current) {
+  return Array.from({length: total}, (_, i) => {
+    const w = i === current ? '22px' : '8px';
+    const bg = i < current ? 'var(--green)' : i === current ? 'var(--red)' : 'var(--border)';
+    return `<span style="display:inline-block;width:${w};height:8px;border-radius:4px;background:${bg};margin-right:5px;transition:all 0.2s"></span>`;
+  }).join('');
+}
+
+function wizardCard(phase, q, hint, opts, fnName, key, totalSteps, currentStep) {
+  const optHtml = opts.map(o =>
+    `<button class="opt-btn" onclick="${fnName}('${key}','${o.v}')">
+       <div class="opt-main">${o.label}</div>
+       <div class="opt-desc">${o.desc}</div>
+     </button>`
+  ).join('');
+  return `
+    <div class="card">
+      <div style="margin-bottom:14px">${stepDots(totalSteps, currentStep)}</div>
+      <div class="phase-badge">🔍 ${phase}</div>
+      <div class="wiz-question">${q}</div>
+      <div class="wiz-hint">${hint}</div>
+      <div class="wiz-options">${optHtml}</div>
+    </div>`;
+}
+
+// ══════════════════════════════════════════════════════
 // PREFLIGHT TAB
-// ══════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 const PF_STEPS = [
-  {
-    key: 'destWeather',
-    phase: 'Destination Assessment',
-    q: 'What is the destination forecast at ETOU?',
-    hint: 'ETOU = ETA ± 30 minutes. Check the TAF for this window at destination.',
-    opts: [
-      { v: 'above-dm', label: '✅ At or above Determining Minima (DM)', desc: 'Forecast ceiling/vis meets or exceeds DM throughout the ETOU window' },
-      { v: 'below-dm', label: '⚠️ Below Determining Minima (DM)', desc: 'Forecast ceiling/vis is below DM for some or all of the ETOU window' },
-    ]
-  },
-  {
-    key: 'altAvail',
-    phase: 'Alternate Assessment',
-    when: a => a.destWeather === 'below-dm',
-    q: 'Is a suitable Destination Alternate available at or above Qualifying Minima (QM)?',
-    hint: 'Check the CMSG EFF+ top note or Airport Planning Minima document for QM at candidate alternates.',
-    opts: [
-      { v: 'yes', label: '✅ Yes – suitable alternate available (≥ QM)', desc: 'A Destination Alternate meeting QM is available and within range' },
-      { v: 'no',  label: '❌ No – no suitable alternate available',       desc: 'No airport meets QM, or all suitable alternates are out of range' },
-    ]
-  },
-  {
-    key: 'destType',
-    phase: 'Destination Type',
-    when: a => a.destWeather === 'above-dm' || a.altAvail === 'yes',
-    q: 'What is the destination type?',
-    hint: 'This determines whether 25 min single-runway holding fuel applies at DPA.',
-    opts: [
-      { v: 'domestic',     label: '🇦🇺 Domestic (Australian territory)',         desc: 'Within Australian territory – no 25 min single-runway holding requirement' },
-      { v: 'multi-intl',   label: '🌏 International – multiple suitable runways', desc: 'Outside Australia with 2+ separate suitable runways available' },
-      { v: 'single-intl',  label: '⚠️ International – single suitable runway',   desc: 'Outside Australia with only one suitable runway – 25 min holding fuel required at DPA' },
-    ]
-  },
+  { key:'destWeather', phase:'Destination Assessment', q:'What is the destination forecast at ETOU?', hint:'ETOU = ETA ± 30 minutes. Check the TAF for this window at destination.',
+    opts:[
+      { v:'above-dm',  label:'✅ At or above Determining Minima (DM)',  desc:'Forecast ceiling/vis meets or exceeds DM throughout the ETOU window' },
+      { v:'below-dm',  label:'⚠️ Below Determining Minima (DM)',        desc:'Forecast ceiling/vis is below DM for some or all of the ETOU window' },
+    ]},
+  { key:'altAvail', phase:'Alternate Assessment', when: a => a.destWeather === 'below-dm',
+    q:'Is a suitable Destination Alternate available at or above Qualifying Minima (QM)?',
+    hint:'Check the CMSG EFF+ top note or Airport Planning Minima document for QM at candidate alternates.',
+    opts:[
+      { v:'yes', label:'✅ Yes – suitable alternate available (≥ QM)', desc:'A Destination Alternate meeting QM is available and within range' },
+      { v:'no',  label:'❌ No – no suitable alternate available',       desc:'No airport meets QM, or all suitable alternates are out of range' },
+    ]},
+  { key:'destType', phase:'Destination Type', when: a => a.destWeather === 'above-dm' || a.altAvail === 'yes',
+    q:'What is the destination type?', hint:'Determines whether 25 min single-runway holding fuel applies at DPA.',
+    opts:[
+      { v:'domestic',    label:'🇦🇺 Domestic (Australian territory)',          desc:'Within Australian territory — no 25 min single-runway holding requirement' },
+      { v:'multi-intl',  label:'🌏 International — multiple suitable runways', desc:'Outside Australia with 2+ separate suitable runways available' },
+      { v:'single-intl', label:'⚠️ International — single suitable runway',    desc:'Outside Australia with only one suitable runway — 25 min holding fuel required at DPA' },
+    ]},
 ];
 
-function pfActiveSteps() {
-  return PF_STEPS.filter(s => !s.when || s.when(S.pf.answers));
-}
-
+function pfSteps() { return PF_STEPS.filter(s => !s.when || s.when(S.pf.answers)); }
 function pfAnswer(key, val) {
   S.pf.answers[key] = val;
-  // Clear dependent answers
   if (key === 'destWeather') { delete S.pf.answers.altAvail; delete S.pf.answers.destType; }
-  if (key === 'altAvail') { delete S.pf.answers.destType; }
+  if (key === 'altAvail') delete S.pf.answers.destType;
   S.pf.step++;
   render();
 }
-
-function pfReset() { S.pf = { step: 0, answers: {} }; render(); }
+function pfReset() { S.pf = { step:0, answers:{} }; render(); }
 
 function pfResult() {
   const { destWeather, altAvail, destType } = S.pf.answers;
   if (destWeather === 'above-dm') {
-    const hold = destType === 'single-intl'
-      ? `<div class="info-box">⚠️ <b>Single-runway international:</b> 25 min holding fuel also required at DPA — verify OFP Destination EOD ≥ 80 min. Calculated as FRF × 5/6.</div>`
-      : `<div class="info-box">✅ <b>${destType === 'domestic' ? 'Domestic' : 'Multi-runway international'}:</b> Only 15 min NDA fuel required at DPA (= FRF × 0.5). No 25 min holding needed.</div>`;
-    return `
-      <div class="result-box green">
-        <div class="result-title">✅ No Destination Alternate Required</div>
-        <div class="result-body">Destination forecast is at or above Determining Minima at ETOU.</div>
-      </div>
-      <div class="req-list">
-        <div class="req-list-title">Planning Requirements</div>
-        <div class="req-item"><span class="req-icon">✈️</span>DPA Airport must be ≥ DM, within 90 min of destination</div>
-        <div class="req-item"><span class="req-icon">⛽</span>15 min NDA fuel required at DPA (FRF × 0.5)</div>
-        <div class="req-item"><span class="req-icon">⏱️</span>ETOU = ETA ± 30 min (or ETA −30/+60 for isolated destinations)</div>
+    const holdNote = destType === 'single-intl'
+      ? '<div class="warn-box">⚠️ <b>Single-runway international:</b> 25 min holding fuel also required at DPA — verify OFP Destination EOD ≥ 80 min. Calculated as FRF × 5/6.</div>'
+      : `<div class="info-box">✅ <b>${destType === 'domestic' ? 'Domestic' : 'Multi-runway international'}:</b> Only 15 min NDA fuel required at DPA (FRF × 0.5). No 25 min holding.</div>`;
+    return `<div class="result-box green"><div class="result-title">✅ No Destination Alternate Required</div><div class="result-body">Destination is at or above DM at ETOU.</div></div>
+      <div class="req-list"><div class="req-list-title">Planning Requirements</div>
+        <div class="req-item"><span class="req-icon">✈️</span>DPA Airport ≥ DM, within 90 min of destination</div>
+        <div class="req-item"><span class="req-icon">⛽</span>15 min NDA fuel at DPA (FRF × 0.5)</div>
+        <div class="req-item"><span class="req-icon">⏱️</span>ETOU = ETA ± 30 min</div>
         <div class="req-item"><span class="req-icon">📋</span>No Destination Alternate Fuel required on OFP</div>
-      </div>
-      ${hold}`;
+      </div>${holdNote}`;
   }
   if (destWeather === 'below-dm' && altAvail === 'yes') {
-    const hold = destType === 'single-intl'
-      ? `<div class="info-box">💡 Carrying an alternate removes both the 15 min NDA and 25 min single-runway holding requirements at DPA.</div>`
-      : `<div class="info-box">💡 Carrying an alternate removes the 15 min NDA fuel requirement at DPA.</div>`;
-    return `
-      <div class="result-box amber">
-        <div class="result-title">⚠️ Destination Alternate Required</div>
-        <div class="result-body">Destination is below DM. A Destination Alternate must be carried.</div>
-      </div>
-      <div class="req-list">
-        <div class="req-list-title">Planning Requirements</div>
-        <div class="req-item"><span class="req-icon">🛫</span>Destination Alternate must be ≥ Qualifying Minima (QM)</div>
-        <div class="req-item"><span class="req-icon">✈️</span>DPA Airport must be ≥ DM, within 90 min of destination</div>
+    const holdNote = destType === 'single-intl'
+      ? '<div class="info-box">💡 Carrying an alternate removes both the 15 min NDA and 25 min single-runway holding requirements at DPA.</div>'
+      : '<div class="info-box">💡 Carrying an alternate removes the 15 min NDA fuel requirement at DPA.</div>';
+    return `<div class="result-box amber"><div class="result-title">⚠️ Destination Alternate Required</div><div class="result-body">Destination is below DM. A Destination Alternate must be carried.</div></div>
+      <div class="req-list"><div class="req-list-title">Planning Requirements</div>
+        <div class="req-item"><span class="req-icon">🛫</span>Destination Alternate ≥ Qualifying Minima (QM)</div>
+        <div class="req-item"><span class="req-icon">✈️</span>DPA Airport ≥ DM, within 90 min of destination</div>
         <div class="req-item"><span class="req-icon">⛽</span>Destination Alternate Fuel required on OFP</div>
         <div class="req-item"><span class="req-icon">⛽</span>NDA 15 min fuel NOT required when alternate is carried</div>
-      </div>
-      ${hold}`;
+      </div>${holdNote}`;
   }
   if (destWeather === 'below-dm' && altAvail === 'no') {
-    return `
-      <div class="result-box red">
-        <div class="result-title">🔴 Payload Limited — 2× DPA Airports Required</div>
-        <div class="result-body">No suitable alternate. Two DPA Airports (each ≥ DM) must be planned to defer the alternate decision to DPA inflight.</div>
-      </div>
-      <div class="req-list">
-        <div class="req-list-title">Planning Requirements</div>
+    return `<div class="result-box red"><div class="result-title">🔴 Payload Limited — 2× DPA Airports Required</div><div class="result-body">No suitable alternate. Two DPA Airports (each ≥ DM) must be planned.</div></div>
+      <div class="req-list"><div class="req-list-title">Planning Requirements</div>
         <div class="req-item"><span class="req-icon">✈️</span>DPA Airport 1 ≥ DM — acts as commercial planning destination</div>
         <div class="req-item"><span class="req-icon">✈️</span>DPA Airport 2 ≥ DM — acts as the DPA Airport</div>
-        <div class="req-item"><span class="req-icon">⚠️</span>Controlling DPA = the DPA point furthest from destination</div>
-        <div class="req-item"><span class="req-icon">⛽</span>No Destination Alternate Fuel loaded — flight is payload limited</div>
-        <div class="req-item"><span class="req-icon">📋</span>At DPA, normal fly-on/divert criteria apply based on current conditions</div>
+        <div class="req-item"><span class="req-icon">⚠️</span>Controlling DPA = the point furthest from destination</div>
+        <div class="req-item"><span class="req-icon">⛽</span>No Destination Alternate Fuel loaded — payload limited</div>
+        <div class="req-item"><span class="req-icon">📋</span>Normal fly-on/divert criteria apply at DPA</div>
       </div>
-      <div class="info-box">⚠️ This operation relies on weather at destination improving to ≥ DM or RDM by the time DPA is reached. The flight may only pass DPA if Inflight Fuel Requirements are met.</div>`;
+      <div class="warn-box">⚠️ This operation relies on weather improving to ≥ DM or RDM by DPA. May only pass DPA if Inflight Fuel Requirements are met.</div>`;
   }
   return '';
 }
 
 function renderPreflight() {
-  const steps = pfActiveSteps();
-  const isComplete = S.pf.step >= steps.length;
-  const current = steps[S.pf.step];
-
-  if (isComplete) {
-    return `
-      <div class="card">${pfResult()}
-        <button class="btn btn-ghost" onclick="pfReset()">🔄 Start Over</button>
-      </div>
-      <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.55">
-        <div class="card-label">ℹ️ About ETOU</div>
-        Estimated Time of Use = ETA ± 30 min. Airport weather is assessed for Relevant Weather Conditions (eg INTER, TEMPO) during this window. Runway/navaid availability is assessed at ETA. Isolated destinations use a wider window: ETA −30/+60 min.
-      </div>`;
+  const steps = pfSteps();
+  if (S.pf.step >= steps.length) {
+    return `<div class="card">${pfResult()}<button class="btn btn-ghost" onclick="pfReset()">🔄 Start Over</button></div>
+      <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.55"><div class="card-label">ℹ️ About ETOU</div>ETOU = ETA ± 30 min. Weather assessed for Relevant Weather Conditions during this window. Runway/navaid availability assessed at ETA. Isolated destinations: ETA −30/+60 min.</div>`;
   }
-
-  const stepDots = steps.map((_, i) => {
-    let cls = i < S.pf.step ? 'done' : i === S.pf.step ? 'active' : '';
-    return `<span style="display:inline-block;width:${cls==='active'?'22px':'8px'};height:8px;border-radius:4px;background:${cls==='done'?'var(--green)':cls==='active'?'var(--red)':'var(--border)'};margin-right:5px;transition:all 0.2s"></span>`;
-  }).join('');
-
-  const opts = current.opts.map(o =>
-    `<button class="opt-btn" onclick="pfAnswer('${current.key}','${o.v}')">
-       <div class="opt-main">${o.label}</div>
-       <div class="opt-desc">${o.desc}</div>
-     </button>`
-  ).join('');
-
-  return `
-    <div class="card">
-      <div style="margin-bottom:14px">${stepDots}</div>
-      <div class="phase-badge">📋 ${current.phase}</div>
-      <div class="wiz-question">${current.q}</div>
-      <div class="wiz-hint">${current.hint}</div>
-      <div class="wiz-options">${opts}</div>
-    </div>
-    <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.55">
-      <div class="card-label">🛫 Preflight Goal</div>
-      Preflight, the policy maintains <b>two</b> safe landing options up to DPA — either (1) Destination + DPA Airport, or (2) DPA Airport + Destination Alternate.
-    </div>`;
+  const cur = steps[S.pf.step];
+  return wizardCard(cur.phase, cur.q, cur.hint, cur.opts, 'pfAnswer', cur.key, steps.length, S.pf.step)
+    + `<div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.55"><div class="card-label">🛫 Preflight Goal</div>Maintain <b>two</b> safe landing options up to DPA — either Destination + DPA Airport, or DPA Airport + Destination Alternate.</div>`;
 }
 
-// ══════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // DPA TAB
-// ══════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 const DPA_STEPS = [
-  {
-    key: 'destVsMin',
-    phase: 'Destination Weather at DPA',
-    q: 'Current destination weather vs planning minima?',
-    hint: 'Based on the current TAF/ATIS. At DPA, Reduced Determining Minima (RDM) may be available if conditions are met.',
-    opts: [
-      { v: 'above-dm',  label: '✅ At or above Determining Minima (DM)',          desc: 'Standard fly-on criteria met' },
-      { v: 'above-rdm', label: '🟡 At or above Reduced Determining Minima (RDM)', desc: 'Below DM but meets RDM — TAF3 or High Frequency TAF may be needed' },
-      { v: 'above-lm',  label: '🟠 Below DM/RDM but at or above Landing Minima',  desc: 'Approach possible; Destination Alternate ≥ QM required to continue' },
-      { v: 'below-lm',  label: '🔴 Below Landing Minima',                          desc: 'Below LM; Destination Alternate ≥ DM/RDM required if continuing' },
-    ]
-  },
-  {
-    key: 'taf3',
-    phase: 'RDM Criteria',
-    when: a => a.destVsMin === 'above-rdm',
-    q: 'Is a current TAF3, ICAO Landing Forecast, or High Frequency TAF available?',
-    hint: 'High Frequency TAF = TAF issued every 3 hours at major aerodromes in USA, NZ and Canada. Required for RDM application.',
-    opts: [
-      { v: 'yes', label: '✅ Yes – current TAF3 or HF-TAF available', desc: 'RDM may be applied' },
-      { v: 'no',  label: '❌ No – not available',                       desc: 'RDM cannot be applied; treat as standard DM assessment' },
-    ]
-  },
-  {
-    key: 'destAlt',
-    phase: 'Destination Alternate',
-    when: a => a.destVsMin === 'above-lm' || a.destVsMin === 'below-lm',
-    q: a => a.destVsMin === 'below-lm'
-      ? 'Is the Destination Alternate suitable at or above DM or RDM?'
-      : 'Is the Destination Alternate still suitable at or above Qualifying Minima (QM)?',
-    hint: a => a.destVsMin === 'below-lm'
-      ? 'When destination is below Landing Minima, the alternate must meet DM or RDM — not just QM. It acts as the planning destination.'
-      : 'Destination Alternate must meet Qualifying Minima (QM).',
-    opts: [
-      { v: 'yes', label: '✅ Yes – Destination Alternate suitable', desc: 'Alternate meets required minima' },
-      { v: 'no',  label: '❌ No – Destination Alternate not suitable', desc: 'Below required minima or unavailable' },
-    ]
-  },
-  {
-    key: 'dpaOk',
-    phase: 'DPA Airport Check',
-    q: 'Is the DPA Airport currently at or above Determining Minima?',
-    hint: 'The DPA Airport must be ≥ DM for the flight to pass DPA compliantly. Check current TAF/ATIS.',
-    opts: [
-      { v: 'yes', label: '✅ Yes – DPA Airport ≥ DM', desc: 'DPA Airport is suitable' },
-      { v: 'no',  label: '❌ No – DPA Airport below DM', desc: 'DPA requirements cannot be met with this airport' },
-    ]
-  },
+  { key:'destVsMin', phase:'Destination Weather at DPA', q:'Current destination weather vs planning minima?',
+    hint:'Based on current TAF/ATIS. RDM may be available inflight at DPA if TAF3/HF-TAF is current.',
+    opts:[
+      { v:'above-dm',  label:'✅ At or above Determining Minima (DM)',          desc:'Standard fly-on criteria met' },
+      { v:'above-rdm', label:'🟡 At or above Reduced Determining Minima (RDM)', desc:'Below DM but meets RDM — use Tools tab to calculate RDM' },
+      { v:'above-lm',  label:'🟠 Below DM/RDM but at or above Landing Minima',  desc:'Approach possible; Dest Alternate ≥ QM required to continue' },
+      { v:'below-lm',  label:'🔴 Below Landing Minima',                          desc:'Dest Alternate ≥ DM/RDM required if continuing' },
+    ]},
+  { key:'taf3', phase:'RDM Criteria', when: a => a.destVsMin === 'above-rdm',
+    q:'Is a current TAF3, ICAO Landing Forecast, or High Frequency TAF available?',
+    hint:'HF-TAF = TAF issued every 3 hours at major aerodromes in USA, NZ and Canada.',
+    opts:[
+      { v:'yes', label:'✅ Yes – current TAF3 or HF-TAF available', desc:'RDM may be applied' },
+      { v:'no',  label:'❌ No – not available',                       desc:'RDM cannot be applied; treat as standard DM' },
+    ]},
+  { key:'destAlt', phase:'Destination Alternate', when: a => a.destVsMin === 'above-lm' || a.destVsMin === 'below-lm',
+    q: a => a.destVsMin === 'below-lm' ? 'Is the Destination Alternate ≥ DM or RDM?' : 'Is the Destination Alternate still ≥ Qualifying Minima (QM)?',
+    hint: a => a.destVsMin === 'below-lm' ? 'Below LM: alternate must meet DM or RDM — not just QM. It acts as the planning destination.' : 'Alternate must meet Qualifying Minima (QM).',
+    opts:[
+      { v:'yes', label:'✅ Yes – Destination Alternate suitable', desc:'Alternate meets required minima' },
+      { v:'no',  label:'❌ No – Destination Alternate not suitable', desc:'Below required minima or unavailable' },
+    ]},
+  { key:'dpaOk', phase:'DPA Airport Check', q:'Is the DPA Airport currently ≥ Determining Minima?',
+    hint:'The DPA Airport must be ≥ DM for the flight to pass DPA compliantly. Check current TAF/ATIS.',
+    opts:[
+      { v:'yes', label:'✅ Yes – DPA Airport ≥ DM', desc:'DPA Airport is suitable' },
+      { v:'no',  label:'❌ No – DPA Airport below DM', desc:'DPA requirements cannot be met' },
+    ]},
 ];
 
-function dpaActiveSteps() {
+function dpaSteps() {
   return DPA_STEPS.filter(s => {
     if (!s.when) return true;
-    const w = typeof s.when === 'function' ? s.when(S.dpa.answers) : s.when;
-    return w;
+    return typeof s.when === 'function' ? s.when(S.dpa.answers) : s.when;
   });
 }
-
 function dpaAnswer(key, val) {
   S.dpa.answers[key] = val;
   if (key === 'destVsMin') { delete S.dpa.answers.taf3; delete S.dpa.answers.destAlt; delete S.dpa.answers.dpaOk; }
   S.dpa.step++;
   render();
 }
-
-function dpaReset() { S.dpa = { step: 0, answers: {} }; render(); }
+function dpaReset() { S.dpa = { step:0, answers:{} }; render(); }
 
 function dpaResult() {
   const { destVsMin, taf3, destAlt, dpaOk } = S.dpa.answers;
-
-  if (dpaOk === 'no') return `
-    <div class="result-box red">
-      <div class="result-action">DIVERT</div>
-      <div class="result-title">🔴 DPA Airport Not Suitable</div>
-      <div class="result-body">The DPA Airport is below Determining Minima. DPA requirements cannot be met. Divert to the DPA Airport or another suitable Cat A/B airport.</div>
-    </div>
-    <div class="info-box">If a replacement DPA Airport cannot be found and the Destination and remaining DPA Airport do not meet relinquishment criteria, the PIC should take the safest course of action (FAM 16.10.4.3).</div>`;
-
-  if (destVsMin === 'above-dm' && dpaOk === 'yes') return `
-    <div class="result-box green">
-      <div class="result-action">FLY ON</div>
-      <div class="result-title">✅ All DPA Requirements Met</div>
-      <div class="result-body">Destination ≥ DM. DPA Airport suitable. No Destination Alternate required. Flight may proceed.</div>
-    </div>
-    <div class="req-list">
-      <div class="req-list-title">Post-DPA Considerations</div>
-      <div class="req-item"><span class="req-icon">⛽</span>15 min NDA fuel must be on board at DPA (FRF × 0.5); may be used/repurposed immediately after DPA</div>
-      <div class="req-item"><span class="req-icon">🛡️</span>FRF must remain protected throughout</div>
-      <div class="req-item"><span class="req-icon">📋</span>DPA alternate/fuel requirements now released — only FRF applies</div>
+  if (dpaOk === 'no') return `<div class="result-box red"><div class="result-action">DIVERT</div><div class="result-title">🔴 DPA Airport Not Suitable</div><div class="result-body">DPA Airport is below DM. DPA requirements cannot be met. Divert to DPA Airport or another suitable Cat A/B airport.</div></div>`;
+  if (destVsMin === 'above-dm' && dpaOk === 'yes') return `<div class="result-box green"><div class="result-action">FLY ON</div><div class="result-title">✅ All DPA Requirements Met</div><div class="result-body">Destination ≥ DM. DPA Airport suitable. Flight may proceed.</div></div>
+    <div class="req-list"><div class="req-list-title">Post-DPA Considerations</div>
+      <div class="req-item"><span class="req-icon">⛽</span>15 min NDA fuel must be on board at DPA (FRF × 0.5) — may be used immediately after DPA</div>
+      <div class="req-item"><span class="req-icon">🛡️</span>FRF protected throughout</div>
+      <div class="req-item"><span class="req-icon">📋</span>DPA fuel requirements now released — only FRF applies post-DPA</div>
     </div>`;
-
-  if (destVsMin === 'above-rdm' && taf3 === 'yes' && dpaOk === 'yes') return `
-    <div class="result-box green">
-      <div class="result-action">FLY ON</div>
-      <div class="result-title">✅ RDM Applicable — Requirements Met</div>
-      <div class="result-body">Destination ≥ RDM with current TAF3/HF-TAF. DPA Airport suitable. Flight may proceed.</div>
-    </div>
-    <div class="req-list">
-      <div class="req-list-title">Post-DPA Considerations</div>
+  if (destVsMin === 'above-rdm' && taf3 === 'yes' && dpaOk === 'yes') return `<div class="result-box green"><div class="result-action">FLY ON</div><div class="result-title">✅ RDM Applicable — Requirements Met</div><div class="result-body">Destination ≥ RDM with current TAF3/HF-TAF. DPA Airport suitable.</div></div>
+    <div class="req-list"><div class="req-list-title">Post-DPA Considerations</div>
       <div class="req-item"><span class="req-icon">📄</span>Confirm TAF3 or HF-TAF is current at time of DPA</div>
       <div class="req-item"><span class="req-icon">⛽</span>15 min NDA fuel must be on board at DPA</div>
-      <div class="req-item"><span class="req-icon">🛡️</span>FRF must remain protected throughout</div>
+      <div class="req-item"><span class="req-icon">🛡️</span>FRF protected throughout</div>
     </div>
-    <div class="info-box">💡 RDM is only available inflight at DPA. It cannot be applied preflight. Canada adds a 100ft/400m buffer to RDM values.</div>`;
-
-  if (destVsMin === 'above-rdm' && taf3 === 'no') return `
-    <div class="result-box amber">
-      <div class="result-action">REASSESS</div>
-      <div class="result-title">⚠️ RDM Not Available — Treat as Standard DM</div>
-      <div class="result-body">TAF3/HF-TAF not available. RDM cannot be applied. Reassess destination against standard Determining Minima. If destination is below DM, a Destination Alternate is required to continue.</div>
+    <div class="info-box">Use the 🛠️ Tools tab to calculate RDM values (QM + additive).</div>`;
+  if (destVsMin === 'above-rdm' && taf3 === 'no') return `<div class="result-box amber"><div class="result-action">REASSESS</div><div class="result-title">⚠️ RDM Not Available</div><div class="result-body">TAF3/HF-TAF not available. RDM cannot be applied. Reassess against standard DM. If below DM, a Destination Alternate is required to continue.</div></div>`;
+  if ((destVsMin === 'above-lm' || destVsMin === 'below-lm') && destAlt === 'yes' && dpaOk === 'yes') return `<div class="result-box amber"><div class="result-action">FLY ON</div><div class="result-title">⚠️ Continue — Alternate Required</div><div class="result-body">${destVsMin === 'below-lm' ? 'Destination below LM. Alternate ≥ DM/RDM acts as planning destination. Approach may be attempted; expect divert.' : 'Destination below DM/RDM but ≥ LM. Alternate ≥ QM allows continuation. Approach may be attempted.'}</div></div>
+    <div class="req-list"><div class="req-list-title">Post-DPA Considerations</div>
+      <div class="req-item"><span class="req-icon">🛫</span>Destination Alternate fuel remains protected</div>
+      <div class="req-item"><span class="req-icon">🔄</span>If missed approach, proceed to Destination Alternate</div>
+      <div class="req-item"><span class="req-icon">📋</span>After DPA: Landing Minima applies to all assessments</div>
     </div>`;
-
-  if ((destVsMin === 'above-lm' || destVsMin === 'below-lm') && destAlt === 'yes' && dpaOk === 'yes') {
-    const isAboveLM = destVsMin === 'above-lm';
-    return `
-      <div class="result-box amber">
-        <div class="result-action">FLY ON</div>
-        <div class="result-title">⚠️ Continue — Alternate Required</div>
-        <div class="result-body">${isAboveLM
-          ? 'Destination is below DM/RDM but at/above LM. Destination Alternate ≥ QM allows continuation. An approach may be attempted.'
-          : 'Destination is below Landing Minima. Destination Alternate ≥ DM/RDM acts as the planning destination. An approach may be attempted; expect divert.'}</div>
-      </div>
-      <div class="req-list">
-        <div class="req-list-title">Post-DPA Considerations</div>
-        ${isAboveLM
-          ? '<div class="req-item"><span class="req-icon">🛫</span>Destination Alternate ≥ QM — fuel remains protected</div>'
-          : '<div class="req-item"><span class="req-icon">🛫</span>Destination Alternate ≥ DM/RDM — fuel remains protected (acting as planning destination)</div>'}
-        <div class="req-item"><span class="req-icon">🔄</span>If missed approach, proceed to Destination Alternate</div>
-        <div class="req-item"><span class="req-icon">🛡️</span>FRF must remain protected throughout</div>
-        <div class="req-item"><span class="req-icon">📋</span>After DPA, Landing Minima is used for all assessments</div>
-      </div>`;
-  }
-
-  if ((destVsMin === 'above-lm' || destVsMin === 'below-lm') && destAlt === 'no') return `
-    <div class="result-box red">
-      <div class="result-action">DIVERT</div>
-      <div class="result-title">🔴 No Suitable Alternate — Cannot Fly On</div>
-      <div class="result-body">Destination is below DM/RDM and no suitable Destination Alternate is available. DPA fly-on requirements cannot be met. Divert to DPA Airport or another Category A/B airport.</div>
-    </div>`;
-
-  return `<div class="result-box amber"><div class="result-title">⚠️ Assessment Incomplete</div><div class="result-body">Review options with Dispatch.</div></div>`;
+  if ((destVsMin === 'above-lm' || destVsMin === 'below-lm') && destAlt === 'no') return `<div class="result-box red"><div class="result-action">DIVERT</div><div class="result-title">🔴 No Suitable Alternate</div><div class="result-body">Destination below DM/RDM and no suitable Destination Alternate. Cannot meet DPA fly-on requirements. Divert to DPA Airport.</div></div>`;
+  return `<div class="result-box amber"><div class="result-title">⚠️ Review with Dispatch</div></div>`;
 }
 
 function renderDPA() {
-  const steps = dpaActiveSteps();
-  const isComplete = S.dpa.step >= steps.length;
-  const current = steps[S.dpa.step];
-
-  if (isComplete) {
-    return `
-      <div class="card">${dpaResult()}
-        <button class="btn btn-ghost" onclick="dpaReset()">🔄 New Assessment</button>
-      </div>
-      <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.55">
-        <div class="card-label">📍 After DPA</div>
-        Once past DPA in compliance with inflight requirements, only FRF needs to be protected. The PIC may continue towards destination and manage the remainder of the flight to land safely at or above Landing Minima with FRF intact.
-      </div>`;
+  const steps = dpaSteps();
+  if (S.dpa.step >= steps.length) {
+    return `<div class="card">${dpaResult()}<button class="btn btn-ghost" onclick="dpaReset()">🔄 New Assessment</button></div>
+      <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.55"><div class="card-label">📍 After DPA</div>Only FRF needs to be protected. PIC may continue to destination and manage the remainder of the flight to land safely at or above LM with FRF intact.</div>`;
   }
-
-  const q = typeof current.q === 'function' ? current.q(S.dpa.answers) : current.q;
-  const hint = typeof current.hint === 'function' ? current.hint(S.dpa.answers) : current.hint;
-
-  const stepDots = steps.map((_, i) => {
-    let cls = i < S.dpa.step ? 'done' : i === S.dpa.step ? 'active' : '';
-    return `<span style="display:inline-block;width:${cls==='active'?'22px':'8px'};height:8px;border-radius:4px;background:${cls==='done'?'var(--green)':cls==='active'?'var(--red)':'var(--border)'};margin-right:5px;transition:all 0.2s"></span>`;
-  }).join('');
-
-  const opts = current.opts.map(o =>
-    `<button class="opt-btn" onclick="dpaAnswer('${current.key}','${o.v}')">
-       <div class="opt-main">${o.label}</div>
-       <div class="opt-desc">${o.desc}</div>
-     </button>`
-  ).join('');
-
-  return `
-    <div class="card">
-      <div style="margin-bottom:14px">${stepDots}</div>
-      <div class="phase-badge">🔍 ${current.phase}</div>
-      <div class="wiz-question">${q}</div>
-      <div class="wiz-hint">${hint}</div>
-      <div class="wiz-options">${opts}</div>
-    </div>
-    <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.55">
-      <div class="card-label">✈️ At DPA Goal</div>
-      At DPA, the policy transitions to <b>one</b> safe landing option. The fly-on/divert decision is made here based on current weather, fuel, and alternate status.
-    </div>`;
+  const cur = steps[S.dpa.step];
+  const q = typeof cur.q === 'function' ? cur.q(S.dpa.answers) : cur.q;
+  const hint = typeof cur.hint === 'function' ? cur.hint(S.dpa.answers) : cur.hint;
+  return wizardCard(cur.phase, q, hint, cur.opts, 'dpaAnswer', cur.key, steps.length, S.dpa.step)
+    + `<div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.55"><div class="card-label">✈️ At DPA Goal</div>At DPA, transition to <b>one</b> safe landing option. Make the fly-on/divert decision based on current weather, fuel and alternate status.</div>`;
 }
 
-// ══════════════════════════════════════════════
-// FUEL CALCULATOR TAB
-// ══════════════════════════════════════════════
-function fuelSet(key, val) {
-  S.fuel[key] = val;
+// ══════════════════════════════════════════════════════
+// FUEL TAB
+// ══════════════════════════════════════════════════════
+function fuelSet(key, val) { S.fuel[key] = val; render(); }
+
+function selectAirport(icao) {
+  const ap = AIRPORTS.find(a => a.icao === icao);
+  if (!ap) return;
+  S.fuel.airport = icao;
+  S.fuel.destType = ap.type;
   render();
 }
 
@@ -682,268 +500,438 @@ function renderFuel() {
   const altFuel = parseFloat(f.altFuel) || 0;
   const tripFuel = parseFloat(f.tripFuel) || 0;
   const contPct = Math.max(5, parseFloat(f.contingency) || 5);
-
-  // Calculations
   const nda15 = Math.round(frf * 0.5);
   const hold25 = Math.round(frf * 25 / 30);
-  const contFuel = Math.round(tripFuel * (contPct / 100));
+  const contFuel = Math.round(tripFuel * contPct / 100);
 
+  // Airport selector
+  const groups = [
+    { key:'domestic', label:'🇦🇺 Domestic' },
+    { key:'intl-s',   label:'⚠️ Intl Single-RWY' },
+    { key:'intl-m',   label:'🌏 Intl Multi-RWY' },
+  ];
+  const airportHtml = groups.map(g => {
+    const chips = AIRPORTS.filter(a => a.g === g.key).map(a =>
+      `<button class="airport-chip ${f.airport === a.icao ? 'on' : ''}" onclick="selectAirport('${a.icao}')">${a.iata}</button>`
+    ).join('');
+    return `<div class="airport-group-label">${g.label}</div><div class="airport-scroll">${chips}</div>`;
+  }).join('');
+
+  const selAp = AIRPORTS.find(a => a.icao === f.airport);
+  const apInfoHtml = selAp ? `<div class="airport-info-box">
+    <div class="ai-name">${selAp.iata} — ${selAp.name} (${selAp.icao})</div>
+    <div class="ai-type">${selAp.type === 'domestic' ? '🇦🇺 Domestic' : selAp.type === 'single-intl' ? '⚠️ International Single-Runway' : '🌏 International Multi-Runway'}</div>
+    <div class="ref-def" style="margin-top:6px">${selAp.note}</div>
+    <div class="ref-def" style="margin-top:4px;font-style:italic">Check EFF+ top note or Airport Planning Minima doc for DM/QM values.</div>
+  </div>` : '';
+
+  // Fuel breakdown
   let breakdownHtml = '';
-  let totalFuel = 0;
-
   if (frf > 0 && f.altCarried !== null && f.destType !== null) {
     if (f.altCarried === 'yes') {
-      totalFuel = tripFuel + contFuel + altFuel + frf;
-      breakdownHtml = `
-        <div class="card-label">📊 Minimum Fuel at DPA</div>
-        <div class="fuel-row"><div class="fuel-name">Trip Fuel (DPA → Dest)<div class="fuel-note">FMS figure — expected STAR + approach loaded</div></div><div class="fuel-amt">${fmt(tripFuel)} kg</div></div>
+      const total = tripFuel + contFuel + altFuel + frf;
+      breakdownHtml = `<div class="card fade-up"><div class="card-label">📊 Minimum Fuel at DPA</div>
+        <div class="fuel-row"><div class="fuel-name">Trip Fuel (DPA → Dest)<div class="fuel-note">FMS FUEL PRED — expected STAR + approach loaded</div></div><div class="fuel-amt">${fmt(tripFuel)} kg</div></div>
         <div class="fuel-row"><div class="fuel-name">Contingency (${contPct}%)<div class="fuel-note">Min 5% of trip fuel DPA→Dest</div></div><div class="fuel-amt">${fmt(contFuel)} kg</div></div>
         <div class="fuel-row"><div class="fuel-name">Destination Alternate Fuel<div class="fuel-note">From OFP</div></div><div class="fuel-amt">${fmt(altFuel)} kg</div></div>
         <div class="fuel-row"><div class="fuel-name">Final Reserve Fuel (FRF)<div class="fuel-note">30 min holding at 1500ft</div></div><div class="fuel-amt">${fmt(frf)} kg</div></div>
         <div class="fuel-row"><div class="fuel-name">NDA Fuel (15 min)<div class="fuel-note">✅ Not required — alternate carried</div></div><div class="fuel-amt nil">—</div></div>
-        <div class="fuel-row"><div class="fuel-name">MINIMUM FUEL AT DPA</div><div class="fuel-amt">${fmt(Math.round(totalFuel))} kg</div></div>
-        <div class="info-box">💡 Carrying a Destination Alternate removes the 15 min NDA and 25 min single-runway holding requirements.</div>`;
+        <div class="fuel-row"><div class="fuel-name">MINIMUM FUEL AT DPA</div><div class="fuel-amt">${fmt(Math.round(total))} kg</div></div>
+        <div class="info-box">💡 Carrying an alternate removes the 15 min NDA and 25 min holding requirements.</div></div>`;
     } else {
       const usesHold = f.destType === 'single-intl';
-      totalFuel = tripFuel + frf + nda15 + (usesHold ? hold25 : 0);
-      breakdownHtml = `
-        <div class="card-label">📊 Minimum Fuel at DPA</div>
-        <div class="fuel-row"><div class="fuel-name">Trip Fuel (DPA → Dest)<div class="fuel-note">FMS figure — expected STAR + approach loaded</div></div><div class="fuel-amt">${fmt(tripFuel)} kg</div></div>
+      const total = tripFuel + frf + nda15 + (usesHold ? hold25 : 0);
+      breakdownHtml = `<div class="card fade-up"><div class="card-label">📊 Minimum Fuel at DPA</div>
+        <div class="fuel-row"><div class="fuel-name">Trip Fuel (DPA → Dest)<div class="fuel-note">FMS FUEL PRED — expected STAR + approach loaded</div></div><div class="fuel-amt">${fmt(tripFuel)} kg</div></div>
         <div class="fuel-row"><div class="fuel-name">Final Reserve Fuel (FRF)<div class="fuel-note">30 min holding at 1500ft</div></div><div class="fuel-amt">${fmt(frf)} kg</div></div>
         <div class="fuel-row"><div class="fuel-name">NDA Fuel (15 min)<div class="fuel-note">FRF × 0.5 — may be repurposed after DPA</div></div><div class="fuel-amt">${fmt(nda15)} kg</div></div>
         ${usesHold
-          ? `<div class="fuel-row"><div class="fuel-name">25 min Single-Runway Holding<div class="fuel-note">FRF × 5/6 — verify OFP Dest EOD ≥ 80 min</div></div><div class="fuel-amt">${fmt(hold25)} kg</div></div>`
+          ? `<div class="fuel-row"><div class="fuel-name">25 min Single-RWY Holding<div class="fuel-note">FRF × 5/6 — verify OFP Dest EOD ≥ 80 min</div></div><div class="fuel-amt">${fmt(hold25)} kg</div></div>`
           : `<div class="fuel-row"><div class="fuel-name">25 min Holding Fuel<div class="fuel-note">✅ Not required — multi-runway or domestic</div></div><div class="fuel-amt nil">—</div></div>`}
-        <div class="fuel-row"><div class="fuel-name">MINIMUM FUEL AT DPA</div><div class="fuel-amt">${fmt(Math.round(totalFuel))} kg</div></div>
-        ${usesHold ? `<div class="info-box">⚠️ Verify OFP Destination EOD ≥ 80 min to confirm 25 min holding fuel is covered preflight.<br><br>💡 If a close-in Destination Alternate becomes available at DPA, carrying it removes both the NDA and holding requirements.</div>` : `<div class="info-box">💡 If a close-in Destination Alternate is available at DPA, carrying it removes the 15 min NDA fuel requirement.</div>`}`;
+        <div class="fuel-row"><div class="fuel-name">MINIMUM FUEL AT DPA</div><div class="fuel-amt">${fmt(Math.round(total))} kg</div></div>
+        ${usesHold ? '<div class="warn-box">⚠️ Verify OFP Destination EOD ≥ 80 min to confirm 25 min holding is covered preflight.<br><br>💡 A close-in Destination Alternate at DPA removes both NDA and holding requirements.</div>'
+                   : '<div class="info-box">💡 A close-in Destination Alternate at DPA removes the 15 min NDA requirement.</div>'}</div>`;
     }
   }
 
-  const togDestType = (val, label) =>
-    `<button class="tog-btn ${f.destType === val ? 'on' : ''}" onclick="fuelSet('destType','${val}')">${label}</button>`;
-  const togAlt = (val, label) =>
-    `<button class="tog-btn ${f.altCarried === val ? 'on' : ''}" onclick="fuelSet('altCarried','${val}')">${label}</button>`;
+  const togDT = (val, label) => `<button class="tog-btn ${f.destType === val ? 'on' : ''}" onclick="fuelSet('destType','${val}')">${label}</button>`;
+  const togAlt = (val, label) => `<button class="tog-btn ${f.altCarried === val ? 'on' : ''}" onclick="fuelSet('altCarried','${val}')">${label}</button>`;
 
   return `
-    <div class="card">
-      <div class="card-label">⛽ Fuel at DPA Calculator</div>
-
+    <div class="card"><div class="card-label">🛬 Quick Select Airport</div>
+      ${airportHtml}${apInfoHtml}
+    </div>
+    <div class="card"><div class="card-label">⛽ Fuel at DPA Calculator</div>
       <div class="field-group">
         <label class="field-label">Final Reserve Fuel (FRF) — from OFP</label>
-        <div class="field-row">
-          <input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 2100" value="${f.frf}" oninput="fuelSet('frf',this.value)">
-          <span class="field-unit">kg</span>
-        </div>
+        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 2100" value="${f.frf}" oninput="fuelSet('frf',this.value)"><span class="field-unit">kg</span></div>
         <div class="field-hint">OFP shows FRF as 30 min holding at 1500ft above destination</div>
       </div>
-
       <div class="field-group">
         <label class="field-label">Destination Type</label>
-        <div class="toggle-row">
-          ${togDestType('domestic','🇦🇺 Domestic')}
-          ${togDestType('multi-intl','🌏 Intl Multi-RWY')}
-          ${togDestType('single-intl','⚠️ Intl Single-RWY')}
-        </div>
+        <div class="toggle-row">${togDT('domestic','🇦🇺 Domestic')}${togDT('multi-intl','🌏 Intl Multi-RWY')}${togDT('single-intl','⚠️ Intl Single-RWY')}</div>
       </div>
-
       <div class="field-group">
         <label class="field-label">Destination Alternate Carried?</label>
-        <div class="toggle-row">
-          ${togAlt('yes','✅ Yes')}
-          ${togAlt('no','❌ No')}
-        </div>
+        <div class="toggle-row">${togAlt('yes','✅ Yes')}${togAlt('no','❌ No')}</div>
       </div>
-
       ${f.altCarried === 'yes' ? `
       <div class="field-group fade-up">
         <label class="field-label">Destination Alternate Fuel — from OFP</label>
-        <div class="field-row">
-          <input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 3500" value="${f.altFuel}" oninput="fuelSet('altFuel',this.value)">
-          <span class="field-unit">kg</span>
-        </div>
+        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 3500" value="${f.altFuel}" oninput="fuelSet('altFuel',this.value)"><span class="field-unit">kg</span></div>
       </div>` : ''}
-
       <div class="field-group">
         <label class="field-label">Trip Fuel DPA → Destination (FMS)</label>
-        <div class="field-row">
-          <input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 4200" value="${f.tripFuel}" oninput="fuelSet('tripFuel',this.value)">
-          <span class="field-unit">kg</span>
-        </div>
-        <div class="field-hint">Use FMS FUEL PRED with expected arrival procedure loaded</div>
+        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 4200" value="${f.tripFuel}" oninput="fuelSet('tripFuel',this.value)"><span class="field-unit">kg</span></div>
+        <div class="field-hint">FMS FUEL PRED with expected arrival procedure loaded</div>
       </div>
-
       ${f.altCarried === 'yes' ? `
       <div class="field-group fade-up">
-        <label class="field-label">Contingency Fuel %</label>
-        <div class="field-row">
-          <input class="field-input" type="number" inputmode="numeric" placeholder="5" value="${f.contingency}" oninput="fuelSet('contingency',this.value)" style="max-width:90px">
-          <span class="field-unit">% (minimum 5%)</span>
-        </div>
+        <label class="field-label">Contingency %</label>
+        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="5" value="${f.contingency}" oninput="fuelSet('contingency',this.value)" style="max-width:90px"><span class="field-unit">% (min 5%)</span></div>
       </div>` : ''}
     </div>
-
-    ${breakdownHtml ? `<div class="card fade-up">${breakdownHtml}</div>` : ''}
-
-    ${frf > 0 && frf < 1000 ? `<div class="disclaimer">⚠️ FRF value seems low. Confirm the OFP FRF value — for the B737-800 this is typically around 1,800–2,400 kg.</div>` : ''}`;
+    ${breakdownHtml}
+    ${frf > 0 && frf < 1000 ? `<div class="disclaimer">⚠️ FRF value seems low. Typical B737-800 FRF is ~1,800–2,400 kg. Confirm from OFP.</div>` : ''}`;
 }
 
-function fmt(n) { return n === 0 ? '0' : Math.round(n).toLocaleString(); }
+// ══════════════════════════════════════════════════════
+// TOOLS TAB — RDM CALCULATOR + PROB30/40 CHECKER
+// ══════════════════════════════════════════════════════
+function rdmSet(key, val) { S.rdm[key] = val; render(); }
+function probSet(key, val) { S.prob[key] = val; render(); }
+function apSet(icao) { S.ap.selected = S.ap.selected === icao ? null : icao; render(); }
 
-// ══════════════════════════════════════════════
+function calcRDM() {
+  const { runways, catConfig, lmCeiling, qmCeiling, qmVis, canada } = S.rdm;
+  if (runways !== '2plus') return null; // Need 2+ runways
+  const lm = parseFloat(lmCeiling) || 0;
+  const qmC = parseFloat(qmCeiling) || 0;
+  const qmV = parseFloat(qmVis) || 0;
+
+  let ceiling, vis, item;
+  if (catConfig === 'both-cat2') {
+    // Item 1: Both runways have CAT II/III IAP
+    ceiling = lm;   // Lowest Landing Minima ceiling
+    vis = qmV;      // Lowest QM visibility
+    item = 1;
+  } else if (catConfig === 'one-cat2') {
+    // Item 2: One runway CAT II/III, other any IAP
+    ceiling = 400;
+    vis = qmV + 400;
+    item = 2;
+  } else if (catConfig === 'no-cat2') {
+    // Item 4: Both runways with IAP but no CAT II
+    ceiling = qmC + 100;
+    vis = qmV + 400;
+    item = 4;
+  } else {
+    return null;
+  }
+
+  // Canada buffer (+100ft/+400m on final RDM values)
+  if (canada === 'yes') { ceiling += 100; vis += 400; }
+
+  return { ceiling: Math.round(ceiling), vis: Math.round(vis), item };
+}
+
+function timeToMins(hhmm) {
+  if (!hhmm || !hhmm.includes(':')) return null;
+  const parts = hhmm.split(':');
+  const h = parseInt(parts[0]), m = parseInt(parts[1]);
+  if (isNaN(h) || isNaN(m)) return null;
+  return h * 60 + m;
+}
+function minsToTime(mins) {
+  const m = ((mins % 1440) + 1440) % 1440;
+  return String(Math.floor(m/60)).padStart(2,'0') + ':' + String(m%60).padStart(2,'0');
+}
+
+function checkProb() {
+  const { isTaf3, tafIssue, eta, etouType } = S.prob;
+  if (isTaf3 !== 'yes') return null;
+  const issueMins = timeToMins(tafIssue);
+  const etaMins = timeToMins(eta);
+  if (issueMins === null || etaMins === null) return null;
+
+  const tafEndMins = issueMins + 180; // 3 hours
+  const etouOffset = etouType === 'isolated' ? 60 : 30;
+  let etouStart = etaMins - 30;
+  let etouEnd = etaMins + etouOffset;
+
+  // Handle midnight rollover: if ETA appears before TAF issue, add 24 hours
+  if (etaMins < issueMins) { etouStart += 1440; etouEnd += 1440; }
+
+  const within = etouStart >= issueMins && etouEnd <= tafEndMins;
+  return {
+    within,
+    tafEnd: minsToTime(tafEndMins),
+    etouStart: minsToTime(etouStart),
+    etouEnd: minsToTime(etouEnd),
+    minutesShort: within ? 0 : Math.ceil(etouEnd - tafEndMins),
+  };
+}
+
+function renderTools() {
+  const r = S.rdm;
+  const p = S.prob;
+
+  // RDM needs
+  const needsLM = r.runways === '2plus' && r.catConfig === 'both-cat2';
+  const needsQMC = r.runways === '2plus' && r.catConfig === 'no-cat2';
+  const needsQMV = r.runways === '2plus' && (r.catConfig === 'both-cat2' || r.catConfig === 'one-cat2' || r.catConfig === 'no-cat2');
+  const rdmReady = r.runways === '2plus' && r.catConfig && (needsLM ? r.lmCeiling : true) && (needsQMC ? r.qmCeiling : true) && r.qmVis && r.canada;
+  const rdm = rdmReady ? calcRDM() : null;
+
+  const togR = (key, val, label) => `<button class="tog-btn ${r[key] === val ? 'on' : ''}" onclick="rdmSet('${key}','${val}')">${label}</button>`;
+  const togP = (key, val, label) => `<button class="tog-btn ${p[key] === val ? 'on' : ''}" onclick="probSet('${key}','${val}')">${label}</button>`;
+
+  const probResult = p.isTaf3 === 'yes' && p.tafIssue && p.eta ? checkProb() : null;
+
+  return `
+    <!-- RDM CALCULATOR -->
+    <div class="card">
+      <div class="card-label">🟡 RDM Calculator</div>
+      <div style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:14px">
+        Reduced Determining Minima is only available <b>inflight at DPA</b> when the destination has a high-accuracy forecast. Values from EFF+ QM + additive (FSO 066/25).
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Number of Suitable Runways at Destination</label>
+        <div class="toggle-row">
+          ${togR('runways','1','1 Runway')}
+          ${togR('runways','2plus','2+ Runways')}
+        </div>
+      </div>
+
+      ${r.runways === '1' ? `<div class="result-box red" style="margin-top:4px"><div class="result-title">🚫 RDM Not Available</div><div class="result-body">RDM requires 2 different suitable runways, each with an IAP. Only 1 suitable runway — RDM cannot be applied.</div></div>` : ''}
+
+      ${r.runways === '2plus' ? `
+      <div class="field-group fade-up">
+        <label class="field-label">CAT II / III IAP Availability</label>
+        <div class="toggle-row">
+          ${togR('catConfig','both-cat2','Both runways ≥ CAT II')}
+          ${togR('catConfig','one-cat2','One runway ≥ CAT II')}
+          ${togR('catConfig','no-cat2','No CAT II available')}
+        </div>
+        <div class="field-hint">SA CAT II counts as CAT II for this purpose</div>
+      </div>
+
+      ${needsLM ? `
+      <div class="field-group fade-up">
+        <label class="field-label">Lowest Landing Minima Ceiling (DH/DA) — from approach chart</label>
+        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 100" value="${r.lmCeiling}" oninput="rdmSet('lmCeiling',this.value)"><span class="field-unit">ft</span></div>
+        <div class="field-hint">Used for Item 1 (both runways have CAT II/III). Eg Sydney CAT II DH = 100ft</div>
+      </div>` : ''}
+
+      ${needsQMC ? `
+      <div class="field-group fade-up">
+        <label class="field-label">Lowest QM Ceiling — from EFF+ top note</label>
+        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 600" value="${r.qmCeiling}" oninput="rdmSet('qmCeiling',this.value)"><span class="field-unit">ft</span></div>
+      </div>` : ''}
+
+      ${needsQMV ? `
+      <div class="field-group fade-up">
+        <label class="field-label">Lowest QM Visibility — from EFF+ top note</label>
+        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 800" value="${r.qmVis}" oninput="rdmSet('qmVis',this.value)"><span class="field-unit">m</span></div>
+        <div class="field-hint">Australian forecasts: use Visibility (not RVR). RVR applies only if reported in forecast.</div>
+      </div>` : ''}
+
+      ${r.catConfig ? `
+      <div class="field-group fade-up">
+        <label class="field-label">Is the destination in Canada?</label>
+        <div class="toggle-row">${togR('canada','no','No')}${togR('canada','yes','Yes (+100ft/400m buffer)')}</div>
+        <div class="field-hint">CASA requires an additional 100ft/400m buffer for Canadian airports</div>
+      </div>` : ''}
+      ` : ''}
+
+      ${rdm ? `
+      <div class="rdm-result fade-up">
+        <div class="rdm-label" style="margin-bottom:4px">Item ${rdm.item} — Reduced Determining Minima</div>
+        <div class="rdm-value">${rdm.ceiling}ft / ${rdm.vis.toLocaleString()}m</div>
+        <div class="rdm-label" style="margin-top:8px">Ceiling: ${rdm.ceiling}ft &nbsp;|&nbsp; Visibility: ${rdm.vis}m</div>
+        ${r.canada === 'yes' ? '<div class="rdm-label" style="color:#d97706;margin-top:4px">Includes +100ft/+400m Canada buffer</div>' : ''}
+      </div>
+      <div class="info-box" style="margin-top:12px">Compare these RDM values against the current destination forecast. If forecast ≥ RDM, the destination meets reduced criteria and RDM may be applied at DPA.</div>
+      ` : ''}
+
+      <button class="btn btn-ghost" onclick="S.rdm={runways:null,catConfig:null,lmCeiling:'',qmCeiling:'',qmVis:'',canada:null};render()">🔄 Reset RDM</button>
+    </div>
+
+    <!-- PROB30/40 CHECKER -->
+    <div class="card">
+      <div class="card-label">🌦️ PROB30/40 Checker</div>
+      <div style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:14px">
+        PROB30/40 deteriorations in a TAF3 need <b>not</b> be applied if the entire ETOU window falls within the first 3 hours of the TAF3 issue time. (Part 121 MOS 4.06(5) and (7))
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Is this a TAF3 (or equivalent HF-TAF)?</label>
+        <div class="toggle-row">
+          ${togP('isTaf3','yes','Yes — TAF3 / HF-TAF')}
+          ${togP('isTaf3','no','No — standard TAF')}
+        </div>
+      </div>
+
+      ${p.isTaf3 === 'no' ? `<div class="result-box red" style="margin-top:4px"><div class="result-title">PROB30/40 Must Be Applied</div><div class="result-body">This concession only applies to TAF3 or High Frequency TAF forecasts. A standard TAF requires PROB30/40 to be applied.</div></div>` : ''}
+
+      ${p.isTaf3 === 'yes' ? `
+      <div class="field-group fade-up">
+        <label class="field-label">TAF3 Issue Time (UTC)</label>
+        <div class="field-row"><input class="field-input time-input" type="time" value="${p.tafIssue}" oninput="probSet('tafIssue',this.value)"><span class="field-unit">Z</span></div>
+      </div>
+      <div class="field-group fade-up">
+        <label class="field-label">ETA at Destination (UTC)</label>
+        <div class="field-row"><input class="field-input time-input" type="time" value="${p.eta}" oninput="probSet('eta',this.value)"><span class="field-unit">Z</span></div>
+      </div>
+      <div class="field-group fade-up">
+        <label class="field-label">ETOU Type</label>
+        <div class="toggle-row">
+          ${togP('etouType','standard','Standard (ETA ±30 min)')}
+          ${togP('etouType','isolated','Isolated (ETA −30/+60 min)')}
+        </div>
+      </div>
+      ` : ''}
+
+      ${probResult ? `
+      <div class="prob-result ${probResult.within ? 'prob-not-apply' : 'prob-apply'} fade-up">
+        <div class="prob-title">${probResult.within ? '✅ PROB30/40 Need Not Be Applied' : '⚠️ PROB30/40 Must Be Applied'}</div>
+        <div class="prob-detail">
+          ETOU window: <b>${probResult.etouStart}Z – ${probResult.etouEnd}Z</b><br>
+          TAF3 first 3 hours ends: <b>${probResult.tafEnd}Z</b><br>
+          ${probResult.within
+            ? 'The entire ETOU falls within the first 3 hours of the TAF3. PROB30/40 may be disregarded for alternate planning purposes.'
+            : `ETOU extends ${probResult.minutesShort} minute${probResult.minutesShort !== 1 ? 's' : ''} beyond the TAF3 first 3-hour period. PROB30/40 must be applied.`}
+        </div>
+      </div>
+      ` : ''}
+    </div>
+
+    <!-- AIRPORT PROFILES -->
+    <div class="card">
+      <div class="card-label">🗺️ Airport Profiles</div>
+      <div style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:14px">
+        Tap an airport to see its runway config, approach types, and planning notes. Specific DM/QM values are always from EFF+.
+      </div>
+
+      <div class="airport-group-label">Domestic</div>
+      <div class="airport-scroll">
+        ${AIRPORTS.filter(a=>a.g==='domestic').map(a=>`<button class="airport-chip ${S.ap.selected===a.icao?'on':''}" onclick="apSet('${a.icao}')">${a.iata} ${a.name}</button>`).join('')}
+      </div>
+
+      <div class="airport-group-label" style="margin-top:12px">International — Single Runway</div>
+      <div class="airport-scroll">
+        ${AIRPORTS.filter(a=>a.g==='intl-s').map(a=>`<button class="airport-chip ${S.ap.selected===a.icao?'on':''}" onclick="apSet('${a.icao}')">${a.iata} ${a.name}</button>`).join('')}
+      </div>
+
+      <div class="airport-group-label" style="margin-top:12px">International — Multi-Runway</div>
+      <div class="airport-scroll">
+        ${AIRPORTS.filter(a=>a.g==='intl-m').map(a=>`<button class="airport-chip ${S.ap.selected===a.icao?'on':''}" onclick="apSet('${a.icao}')">${a.iata} ${a.name}</button>`).join('')}
+      </div>
+
+      ${(() => {
+        const ap = AIRPORTS.find(a => a.icao === S.ap.selected);
+        if (!ap) return `<div class="info-box" style="margin-top:12px">Select an airport above to view its profile.</div>`;
+        const typeLabel = ap.type === 'domestic' ? '🇦🇺 Domestic' : ap.type === 'single-intl' ? '🌏 International (Single Runway)' : '🌏 International (Multi-Runway)';
+        const holdingBadge = ap.holding25
+          ? `<span style="background:#fef3c7;color:#92400e;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;margin-left:6px">⏱️ 25 min Holding</span>`
+          : `<span style="background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;margin-left:6px">✅ No 25 min Hold</span>`;
+        return `
+        <div class="airport-info-box fade-up" style="margin-top:14px">
+          <div class="ai-name" style="font-size:15px;display:flex;align-items:center;flex-wrap:wrap;gap:4px">
+            ${ap.name} (${ap.iata} / ${ap.icao}) ${holdingBadge}
+          </div>
+          <div class="ai-type" style="margin-top:6px;margin-bottom:10px;color:var(--text-muted)">${typeLabel}</div>
+          <div style="display:grid;gap:8px">
+            <div>
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:3px">Runways</div>
+              <div style="font-size:13px">${ap.runwayDesc}</div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:3px">Approach Types</div>
+              <div style="font-size:13px">${ap.approaches}</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <div style="background:#fff7ed;border-radius:8px;padding:9px 11px">
+                <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#92400e;margin-bottom:3px">DM Category</div>
+                <div style="font-size:12px;color:#92400e;font-weight:600">${ap.dmNote}</div>
+              </div>
+              <div style="background:#f0f9ff;border-radius:8px;padding:9px 11px">
+                <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#075985;margin-bottom:3px">QM (as Alternate)</div>
+                <div style="font-size:12px;color:#075985;font-weight:600">${ap.qmNote}</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:3px">Planning Notes</div>
+              <div style="font-size:13px;line-height:1.55">${ap.note}</div>
+            </div>
+          </div>
+        </div>`;
+      })()}
+    </div>
+
+    <div class="disclaimer">🛠️ Tools are for study and situational awareness only. Always verify against EFF+, the OFP, and Operations Manual (FAM).</div>`;
+}
+
+// ══════════════════════════════════════════════════════
 // REFERENCE TAB
-// ══════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 const REF_SECTIONS = [
-  {
-    key: 'minima',
-    title: '📋 Planning Minima Types',
-    body: `
-      <table class="minima-table">
-        <thead><tr><th>Type</th><th>Used At</th><th>Purpose</th></tr></thead>
-        <tbody>
-          <tr><td class="td-dm">DM<br><small>Determining Minima</small></td><td>Destination &amp; DPA Airport (preflight and inflight)</td><td>Determines whether an alternate is <em>needed</em></td></tr>
-          <tr><td class="td-rdm">RDM<br><small>Reduced Determining Minima</small></td><td>Destination only (inflight at DPA only)</td><td>Lower DM when TAF3/HF-TAF available. Calculated from QM + additive (FSO 066/25). Requires 2 different suitable runways each with an IAP.</td></tr>
-          <tr><td class="td-qm">QM<br><small>Qualifying Minima</small></td><td>Destination Alternate</td><td><em>Qualifies</em> an airport for use as a Destination Alternate. Typically lower than DM.</td></tr>
-          <tr><td class="td-lm">LM<br><small>Landing Minima</small></td><td>All airports — post-DPA</td><td>Minimum weather for an approach attempt. Applied at all airports after DPA is passed compliantly.</td></tr>
-        </tbody>
-      </table>`
-  },
-  {
-    key: 'dpa',
-    title: '✈️ Decision Point Approach (DPA)',
-    body: `
-      <div class="ref-item">
-        <div class="ref-term">What is DPA?</div>
-        <div class="ref-def">The point at which the flight is effectively re-dispatched. Before DPA: two safe landing options. After DPA: one safe landing option. It is the point of commitment to the destination.</div>
-      </div>
-      <div class="ref-item">
-        <div class="ref-term">DPA Constraints</div>
-        <div class="ref-def">Maximum <b>90 minutes</b> flight time from Destination. Cannot be beyond Top of Descent. May be recalculated inflight based on a new Cat A or B airport (even back to Departure Airport).</div>
-      </div>
-      <div class="ref-item">
-        <div class="ref-term">DPA Airport</div>
-        <div class="ref-def">A Category A or B airport that provides the diversion safety net up to DPA. Must remain ≥ DM throughout.</div>
-      </div>
-      <div class="ref-item">
-        <div class="ref-term">2 × DPA Airports</div>
-        <div class="ref-def">Used when destination is below DM and no suitable alternate exists. One acts as planning destination, the other as DPA Airport. Allows the flight to depart without Destination Alternate Fuel (payload limited).</div>
-      </div>
-      <div class="ref-item">
-        <div class="ref-term">After DPA</div>
-        <div class="ref-def">DPA fuel protections (NDA, holding, alternate) are released. Only FRF must be protected. Post-DPA, LM applies to all airport assessments. PIC may continue to destination and manage the remainder of the flight using current information.</div>
-      </div>`
-  },
-  {
-    key: 'etou',
-    title: '⏱️ Estimated Time of Use (ETOU)',
-    body: `
-      <div class="ref-item">
-        <div class="ref-term">Purpose</div>
-        <div class="ref-def">ETOU is the window during which an airport's weather is assessed for Relevant Weather Conditions (eg INTER, TEMPO). It replaces the old 30-minute buffer method but has the same practical effect.</div>
-      </div>
-      <div class="ref-item">
-        <div class="ref-term">Standard ETOU</div>
-        <div class="ref-def">ETA ± 30 minutes</div>
-      </div>
-      <div class="ref-item">
-        <div class="ref-term">Isolated Destination ETOU</div>
-        <div class="ref-def">30 minutes before ETA to 60 minutes after ETA</div>
-      </div>
-      <div class="ref-item">
-        <div class="ref-term">What is Assessed at ETOU?</div>
-        <div class="ref-def">Weather (Relevant Weather Conditions) and airport lighting (when ETOU includes a period of night).</div>
-      </div>
-      <div class="ref-item">
-        <div class="ref-term">What is Assessed at ETA?</div>
-        <div class="ref-def">Runway and navaid availability. All other requirements are tied to airport ETA.</div>
-      </div>
-      <div class="ref-item">
-        <div class="ref-term">Relevant Weather Conditions</div>
-        <div class="ref-def">A transient phenomenon (eg INTER or TEMPO) within the ETOU window. Carrying Holding Fuel equivalent to the transient period removes the requirement to plan for this.</div>
-      </div>`
-  },
-  {
-    key: 'fuel',
-    title: '⛽ Fuel Elements at DPA',
-    body: `
-      ${[
-        { abbr: 'FRF', name: 'Final Reserve Fuel', def: '30 min holding at 1500ft above destination at ISA conditions. Always required. Cannot be planned to use.' },
-        { abbr: 'NDA', name: '15 min No Destination Alternate Fuel', def: 'New Part 121 MOS requirement. Provides buffer for terminal area manoeuvring. Required at DPA if no Destination Alternate carried. Only required inflight at DPA — may be reduced preflight if uplift impracticable. May be repurposed as soon as DPA is passed. Calculated as FRF × 0.5.' },
-        { abbr: 'HOLD', name: '25 min Single-Runway Holding Fuel', def: 'Required at DPA for single-runway destinations outside Australian territory when no Destination Alternate is carried. Calculated as FRF × 5/6 (or × 0.84). Covered if weather holding (eg INTER/TEMPO) ≥ 25 min is planned. OFP Destination EOD ≥ 80 min confirms coverage preflight.' },
-        { abbr: 'ALT', name: 'Destination Alternate Fuel', def: 'Fuel to fly from destination to Destination Alternate + approach. When carried, it removes both the 15 min NDA and 25 min single-runway holding requirements.' },
-        { abbr: 'CONT', name: 'Contingency Fuel', def: 'Minimum 5% of trip fuel from DPA to Destination. Constellation plans up to 10% (fleet cap). Inflight, surplus contingency (above 5% from DPA to Dest) can contribute to an NDA fuel shortfall.' },
-        { abbr: 'EOD', name: 'Endurance Over Destination', def: 'Fuel at destination expressed as minutes of holding. OFP EOD ≥ 80 min confirms FRF (30 min) + 25 min holding + 15 min NDA = 70 min are covered with margin, for single-runway international destinations without an alternate.' },
-      ].map(item => `
-        <div class="ref-item">
-          <div class="ref-term"><span class="ref-badge">${item.abbr}</span> ${item.name}</div>
-          <div class="ref-def">${item.def}</div>
-        </div>`).join('')}`
-  },
-  {
-    key: 'phases',
-    title: '📍 Policy Phases Summary',
-    body: `
-      <div class="result-box amber" style="margin-bottom:10px">
-        <div class="result-title">Phase 1: Preflight to DPA</div>
-        <div class="result-body">Maintain <b>two</b> safe landing options. Destination Alternate planned if needed. DPA Airport ≥ DM confirmed. All fuel requirements provided for on OFP.</div>
-      </div>
-      <div class="result-box blue" style="margin-bottom:10px">
-        <div class="result-title">Phase 1B: Inflight to DPA</div>
-        <div class="result-body">Maintain General Inflight Fuel Requirements. Ensure DPA Airport(s) remain suitable. Destination does not need to be protected — it is assessed at DPA.</div>
-      </div>
-      <div class="result-box green">
-        <div class="result-title">Phase 2: DPA Onwards</div>
-        <div class="result-body">Commit to <b>one</b> safe landing option. DPA fuel checks passed. Proceed to destination managing the remainder of the flight to land with FRF intact, at or above Landing Minima.</div>
-      </div>`
-  },
-  {
-    key: 'single-rwy',
-    title: '🛬 Single-Runway International Airports',
-    body: `
-      <div class="ref-def" style="margin-bottom:10px">The 25 min holding fuel requirement applies at single-runway international destinations when no Destination Alternate is carried.</div>
-      <div class="ref-item">
-        <div class="ref-term">'Separate' vs 'Different' Runways</div>
-        <div class="ref-def"><b>Different</b> = different runway numbers (eg Melbourne 16 and 34 are different). <b>Separate</b> = physically separate runways — if one closes end-to-end, the other's LDA remains usable. On the Qantas network, separate runways are always physically separate with no intersecting LDA (eg YSSY 16L/16R).</div>
-      </div>
-      <div class="ref-item">
-        <div class="ref-term">Examples where 25 min holding applies (no alternate)</div>
-        <div class="ref-def">Auckland (NZAA), Wellington (NZWN), Bali (WADD), Nadi (NFFN), Port Vila (NVVV), Apia (NSFA), Nuku'alofa (NFTF), Noumea (NWWW), Christchurch (NZCH)</div>
-      </div>
-      <div class="ref-item">
-        <div class="ref-term">How to confirm OFP coverage</div>
-        <div class="ref-def">Check OFP Destination EOD ≥ 80 min. This confirms FRF (30) + 25 min holding + 15 min NDA = 70 min are provided for preflight.</div>
-      </div>`
-  },
+  { key:'minima', title:'📋 Planning Minima Types', body:`
+    <table class="mini-table"><thead><tr><th>Type</th><th>Used At</th><th>Purpose</th></tr></thead><tbody>
+      <tr><td class="td-dm">DM<br><small>Determining Minima</small></td><td>Destination &amp; DPA Airport (preflight and inflight)</td><td>Determines whether an alternate is <em>needed</em></td></tr>
+      <tr><td class="td-rdm">RDM<br><small>Reduced Determining Minima</small></td><td>Destination only (inflight at DPA only)</td><td>Lower DM when TAF3/HF-TAF available. Calculated from QM + additive. Requires 2 different runways each with an IAP.</td></tr>
+      <tr><td class="td-qm">QM<br><small>Qualifying Minima</small></td><td>Destination Alternate</td><td><em>Qualifies</em> an airport for use as a Destination Alternate</td></tr>
+      <tr><td class="td-lm">LM<br><small>Landing Minima</small></td><td>All airports — post-DPA</td><td>Minimum for an approach attempt. Applied to all airports after DPA is passed compliantly.</td></tr>
+    </tbody></table>`},
+  { key:'dpa', title:'✈️ Decision Point Approach (DPA)', body:`
+    <div class="ref-item"><div class="ref-term">What is DPA?</div><div class="ref-def">The point of commitment. Before DPA: two safe landing options. After DPA: one safe landing option. The flight is effectively re-dispatched here.</div></div>
+    <div class="ref-item"><div class="ref-term">DPA Constraints</div><div class="ref-def">Maximum <b>90 minutes</b> from Destination. Cannot be beyond Top of Descent. May be recalculated inflight based on any Cat A or B airport (including back to Departure Airport).</div></div>
+    <div class="ref-item"><div class="ref-term">2× DPA Airports</div><div class="ref-def">Used when destination is below DM and no suitable alternate exists. Allows departure without Destination Alternate Fuel. One acts as planning destination, the other as DPA Airport.</div></div>
+    <div class="ref-item"><div class="ref-term">After DPA</div><div class="ref-def">DPA fuel requirements (NDA, holding, alternate) are released. Only FRF must be protected. LM applies to all airport assessments.</div></div>`},
+  { key:'etou', title:'⏱️ Estimated Time of Use (ETOU)', body:`
+    <div class="ref-item"><div class="ref-term">Standard ETOU</div><div class="ref-def">ETA ± 30 minutes. Weather and airport lighting (if night) assessed for this window.</div></div>
+    <div class="ref-item"><div class="ref-term">Isolated Destination ETOU</div><div class="ref-def">30 minutes before ETA to 60 minutes after ETA.</div></div>
+    <div class="ref-item"><div class="ref-term">Assessed at ETOU</div><div class="ref-def">Relevant Weather Conditions (INTER, TEMPO) and airport lighting (when ETOU includes night).</div></div>
+    <div class="ref-item"><div class="ref-term">Assessed at ETA</div><div class="ref-def">Runway suitability and navaid availability. All other requirements tied to ETA.</div></div>
+    <div class="ref-item"><div class="ref-term">Holding Fuel &amp; ETOU</div><div class="ref-def">Carrying Holding Fuel equivalent to a transient weather period (eg INTER or TEMPO) removes the requirement to plan for that Relevant Weather Condition.</div></div>`},
+  { key:'fuel', title:'⛽ Fuel Elements Summary', body:[
+    { abbr:'FRF',  name:'Final Reserve Fuel',           def:'30 min holding at 1500ft above destination. Always required. Cannot be planned to use.' },
+    { abbr:'NDA',  name:'15 min No Dest Alternate Fuel', def:'Required at DPA if no Destination Alternate carried. Only required inflight at DPA — may be repurposed immediately after DPA. = FRF × 0.5.' },
+    { abbr:'HOLD', name:'25 min Single-RWY Holding',    def:'Required at DPA for single-runway destinations outside Australian territory (when no alternate). = FRF × 5/6. Covered if weather holding ≥ 25 min planned. OFP EOD ≥ 80 min confirms coverage preflight.' },
+    { abbr:'ALT',  name:'Destination Alternate Fuel',   def:'When carried, removes NDA and 25 min holding requirements. Shown on OFP.' },
+    { abbr:'CONT', name:'Contingency Fuel',             def:'Min 5% of trip fuel DPA→Dest. Constellation plans up to 10% (fleet cap). Surplus (above 5%) can contribute to NDA fuel shortfall.' },
+    { abbr:'EOD',  name:'Endurance Over Destination',   def:'Fuel expressed as minutes of holding at destination. OFP EOD ≥ 80 min confirms FRF (30) + 25 min holding + 15 min NDA are covered for single-runway international.' },
+  ].map(i => `<div class="ref-item"><div class="ref-term"><span class="ref-badge">${i.abbr}</span> ${i.name}</div><div class="ref-def">${i.def}</div></div>`).join('') },
+  { key:'phases', title:'📍 Policy Phases Summary', body:`
+    <div class="result-box amber" style="margin-bottom:10px"><div class="result-title">Phase 1: Preflight to DPA</div><div class="result-body">Maintain <b>two</b> safe landing options. Alternate planned if required. DPA Airport ≥ DM confirmed. All fuel elements provided for on OFP.</div></div>
+    <div class="result-box blue" style="margin-bottom:10px"><div class="result-title">Phase 1B: Inflight to DPA</div><div class="result-body">Maintain General Inflight Fuel Requirements. DPA Airport(s) remain suitable. Destination not protected — assessed at DPA.</div></div>
+    <div class="result-box green"><div class="result-title">Phase 2: DPA Onwards</div><div class="result-body">Commit to <b>one</b> safe landing option. Proceed to destination. Manage flight to land safely at or above LM with FRF intact.</div></div>`},
+  { key:'single', title:'🛬 Single-Runway Airports', body:`
+    <div class="ref-item"><div class="ref-term">'Separate' vs 'Different' Runways</div><div class="ref-def"><b>Different</b> = different runway numbers (eg MEL 16 and 34). <b>Separate</b> = physically separate — if one closes end-to-end, the other's LDA remains usable. On the Qantas network, separate runways always have no intersecting LDA (eg YSSY 16L/16R).</div></div>
+    <div class="ref-item"><div class="ref-term">25 min Holding Applies When</div><div class="ref-def">Destination is outside Australian territory, has only one suitable runway, and no Destination Alternate is carried. Calculated as FRF × 5/6 (≈ FRF × 0.833).</div></div>
+    <div class="ref-item"><div class="ref-term">OFP Verification Preflight</div><div class="ref-def">OFP Destination EOD ≥ 80 min confirms FRF (30 min) + 25 min holding + 15 min NDA = 70 min are provided for, with margin.</div></div>
+    <div class="ref-item"><div class="ref-term">Key Airports (25 min applies, no alt)</div><div class="ref-def">Auckland, Christchurch, Wellington, Bali, Nadi, Port Vila, Apia, Nuku'alofa, Noumea, Palau, Manila (06/24 only), Port Moresby (14L/32R only).</div></div>`},
 ];
 
-function refToggle(key) {
-  S.ref.expanded = S.ref.expanded === key ? null : key;
-  render();
-}
+function refToggle(key) { S.ref.expanded = S.ref.expanded === key ? null : key; render(); }
 
 function renderRef() {
-  const sects = REF_SECTIONS.map(s => {
-    const isOpen = S.ref.expanded === s.key;
-    return `
+  return `
+    <div class="disclaimer">📚 <b>Reference material only — not for operational use.</b> The Operations Manual (FAM) and EFF+ take precedence over all guidance material.</div>
+    ${REF_SECTIONS.map(s => `
       <div class="card" style="padding:0;margin-bottom:8px">
         <button class="acc-btn" onclick="refToggle('${s.key}')">
           <span>${s.title}</span>
-          <span class="acc-chevron ${isOpen ? 'open' : ''}">⌄</span>
+          <span class="acc-chevron ${S.ref.expanded === s.key ? 'open' : ''}">⌄</span>
         </button>
-        ${isOpen ? `<div class="acc-body fade-up">${s.body}</div>` : ''}
-      </div>`;
-  }).join('');
-
-  return `
-    <div class="disclaimer">
-      📚 <b>Reference material only — not for operational use.</b><br>
-      The Operations Manual (FAM) and EFF+ take precedence over any guidance material.
-    </div>
-    ${sects}`;
+        ${S.ref.expanded === s.key ? `<div class="acc-body fade-up">${s.body}</div>` : ''}
+      </div>`).join('')}`;
 }
 
-// ══════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // INIT
-// ══════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 render();
 </script>
 
@@ -951,8 +939,8 @@ render();
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js')
-      .then(() => console.log('Service worker registered'))
-      .catch(err => console.log('SW registration failed:', err));
+      .then(() => console.log('SW registered'))
+      .catch(e => console.log('SW error:', e));
   });
 }
 </script>
