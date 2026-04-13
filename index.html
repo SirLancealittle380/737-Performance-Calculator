@@ -321,11 +321,15 @@ function switchTab(tab) {
 function render() {
   // Save focused input state so typing isn't interrupted by re-render
   const ae = document.activeElement;
-  let focusIdx = -1, selStart = 0, selEnd = 0;
+  let focusIdx = -1, selStart = -1, selEnd = -1, focusType = '';
   if (ae && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA')) {
     const all = [...document.querySelectorAll('#content input, #content textarea')];
     focusIdx = all.indexOf(ae);
-    try { selStart = ae.selectionStart; selEnd = ae.selectionEnd; } catch(e) {}
+    focusType = ae.type;
+    // selectionStart throws on type="text" in Safari — only read for text-like inputs
+    if (ae.type !== 'number') {
+      try { selStart = ae.selectionStart; selEnd = ae.selectionEnd; } catch(e) {}
+    }
   }
 
   const fns = { preflight: renderPreflight, dpa: renderDPA, fuel: renderFuel, tools: renderTools, ref: renderRef };
@@ -337,7 +341,10 @@ function render() {
     const el = all[focusIdx];
     if (el) {
       el.focus();
-      try { el.setSelectionRange(selStart, selEnd); } catch(e) {}
+      // Only restore selection for text-like inputs; number inputs naturally place cursor at end
+      if (focusType !== 'number' && selStart >= 0) {
+        try { el.setSelectionRange(selStart, selEnd); } catch(e) {}
+      }
     }
   }
 }
@@ -379,7 +386,7 @@ const PF_STEPS = [
   { key:'destWeather', phase:'Destination Assessment', q:'What is the destination forecast at ETOU?', hint:'ETOU = ETA ± 30 minutes. Check the TAF for this window at destination.',
     opts:[
       { v:'above-dm',  label:'✅ At or above Determining Minima (DM)',  desc:'Forecast ceiling/vis meets or exceeds DM throughout the ETOU window' },
-      { v:'below-dm',  label:'⚠️ Below Determining Minima (DM)',        desc:'Forecast ceiling/vis is below DM for some or all of the ETOU window' },
+      { v:'below-dm',  label:'🌧️ Below Determining Minima (DM)',        desc:'Forecast ceiling/vis is below DM for some or all of the ETOU window' },
     ]},
   { key:'altAvail', phase:'Alternate Assessment', when: a => a.destWeather === 'below-dm',
     q:'Is a suitable Destination Alternate available at or above Qualifying Minima (QM)?',
@@ -733,9 +740,10 @@ function renderFuel() {
         </div>`;
     } else {
       const usesHold = f.destType === 'single-intl';
-      const total = tripFuel + frf + nda15 + (usesHold ? hold25 : 0);
+      const total = tripFuel + contFuel + frf + nda15 + (usesHold ? hold25 : 0);
       breakdownHtml = `<div class="card fade-up"><div class="card-label">📊 Minimum Fuel at DPA</div>
         <div class="fuel-row"><div class="fuel-name">Trip Fuel (DPA → Dest)<div class="fuel-note">FMS FUEL PRED — expected STAR + approach loaded</div></div><div class="fuel-amt">${fmt(tripFuel)} kg</div></div>
+        <div class="fuel-row"><div class="fuel-name">Contingency (${contPct}%)<div class="fuel-note">Min 5% of trip fuel DPA→Dest</div></div><div class="fuel-amt">${fmt(contFuel)} kg</div></div>
         <div class="fuel-row"><div class="fuel-name">Final Reserve Fuel (FRF)<div class="fuel-note">30 min holding at 1500ft</div></div><div class="fuel-amt">${fmt(frf)} kg</div></div>
         <div class="fuel-row"><div class="fuel-name">NDA Fuel (15 min)<div class="fuel-note">FRF × 0.5 — may be repurposed after DPA</div></div><div class="fuel-amt">${fmt(nda15)} kg</div></div>
         ${usesHold
@@ -774,14 +782,14 @@ function renderFuel() {
 
       <div class="field-group">
         <label class="field-label">Aircraft Weight at DPA (t) — optional, for kg↔min</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="decimal" placeholder="e.g. 65" value="${f.weight}" oninput="fuelSet('weight',this.value)" style="max-width:110px"><span class="field-unit">tonnes</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="decimal" placeholder="e.g. 65" value="${f.weight}" oninput="fuelSet('weight',this.value)" style="max-width:110px"><span class="field-unit">tonnes</span></div>
         <div class="field-hint">Used only for kg ↔ min conversion on FRF. From FMS GROSS WT at DPA.</div>
       </div>
 
       <div class="field-group">
         <label class="field-label">Final Reserve Fuel (FRF) — from OFP</label>
         <div class="field-row" style="gap:6px">
-          <input class="field-input" type="number" inputmode="numeric" placeholder="${f.frfUnit==='min'?'e.g. 30':'e.g. 2100'}" value="${f.frf}" oninput="fuelSet('frf',this.value)" style="flex:1">
+          <input class="field-input" type="text" inputmode="numeric" placeholder="${f.frfUnit==='min'?'e.g. 30':'e.g. 2100'}" value="${f.frf}" oninput="fuelSet('frf',this.value)" style="flex:1">
           <button class="tog-btn ${f.frfUnit==='kg'?'on':''}" onclick="fuelSetUnit('kg')" style="white-space:nowrap">kg</button>
           <button class="tog-btn ${f.frfUnit==='min'?'on':''}" onclick="fuelSetUnit('min')" style="white-space:nowrap">min</button>
         </div>
@@ -802,17 +810,17 @@ function renderFuel() {
       ${f.altCarried === 'yes' ? `
       <div class="field-group fade-up">
         <label class="field-label">Destination Alternate Fuel — from OFP</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 3500" value="${f.altFuel}" oninput="fuelSet('altFuel',this.value)"><span class="field-unit">kg</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="numeric" placeholder="e.g. 3500" value="${f.altFuel}" oninput="fuelSet('altFuel',this.value)"><span class="field-unit">kg</span></div>
       </div>` : ''}
       <div class="field-group">
         <label class="field-label">Trip Fuel DPA → Destination (FMS)</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 4200" value="${f.tripFuel}" oninput="fuelSet('tripFuel',this.value)"><span class="field-unit">kg</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="numeric" placeholder="e.g. 4200" value="${f.tripFuel}" oninput="fuelSet('tripFuel',this.value)"><span class="field-unit">kg</span></div>
         <div class="field-hint">FMS FUEL PRED with expected arrival procedure loaded</div>
       </div>
       ${f.altCarried === 'yes' ? `
       <div class="field-group fade-up">
         <label class="field-label">Contingency %</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="5" value="${f.contingency}" oninput="fuelSet('contingency',this.value)" style="max-width:90px"><span class="field-unit">% (min 5%)</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="numeric" placeholder="5" value="${f.contingency}" oninput="fuelSet('contingency',this.value)" style="max-width:90px"><span class="field-unit">% (min 5%)</span></div>
       </div>` : ''}
 
       <div style="border-top:1px solid var(--border);margin:14px 0 14px"></div>
@@ -820,7 +828,7 @@ function renderFuel() {
 
       <div class="field-group">
         <label class="field-label">PLN USBL at DPA — from OFP Critical DP Data</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 3600" value="${f.plnUsbl}" oninput="fuelSet('plnUsbl',this.value)"><span class="field-unit">kg</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="numeric" placeholder="e.g. 3600" value="${f.plnUsbl}" oninput="fuelSet('plnUsbl',this.value)"><span class="field-unit">kg</span></div>
         <div class="field-hint">OFP page labelled "CRITICAL DP DATA" — the "PLN USBL AT [fix]" figure based on planned departure fuel.</div>
       </div>
 
@@ -1037,20 +1045,20 @@ function renderTools() {
       ${needsLM ? `
       <div class="field-group fade-up">
         <label class="field-label">Lowest Landing Minima Ceiling (DH/DA) — from approach chart</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 100" value="${r.lmCeiling}" oninput="rdmSet('lmCeiling',this.value)"><span class="field-unit">ft</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="numeric" placeholder="e.g. 100" value="${r.lmCeiling}" oninput="rdmSet('lmCeiling',this.value)"><span class="field-unit">ft</span></div>
         <div class="field-hint">Used for Item 1 (both runways have CAT II/III). Eg Sydney CAT II DH = 100ft</div>
       </div>` : ''}
 
       ${needsQMC ? `
       <div class="field-group fade-up">
         <label class="field-label">Lowest QM Ceiling — from EFF+ top note</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 600" value="${r.qmCeiling}" oninput="rdmSet('qmCeiling',this.value)"><span class="field-unit">ft</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="numeric" placeholder="e.g. 600" value="${r.qmCeiling}" oninput="rdmSet('qmCeiling',this.value)"><span class="field-unit">ft</span></div>
       </div>` : ''}
 
       ${needsQMV ? `
       <div class="field-group fade-up">
         <label class="field-label">Lowest QM Visibility — from EFF+ top note</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 800" value="${r.qmVis}" oninput="rdmSet('qmVis',this.value)"><span class="field-unit">m</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="numeric" placeholder="e.g. 800" value="${r.qmVis}" oninput="rdmSet('qmVis',this.value)"><span class="field-unit">m</span></div>
         <div class="field-hint">Australian forecasts: use Visibility (not RVR). RVR applies only if reported in forecast.</div>
       </div>` : ''}
 
@@ -1136,7 +1144,7 @@ function renderTools() {
       <div style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:14px">Calculate holding endurance or fuel required for a given hold time. Uses estimated B737-800 fuel flow at weight and altitude.</div>
       <div class="field-group">
         <label class="field-label">Aircraft Weight (t)</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="decimal" placeholder="e.g. 65" value="${h.weight}" oninput="holdSet('weight',this.value)" style="max-width:110px"><span class="field-unit">tonnes</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="decimal" placeholder="e.g. 65" value="${h.weight}" oninput="holdSet('weight',this.value)" style="max-width:110px"><span class="field-unit">tonnes</span></div>
       </div>
       <div class="field-group">
         <label class="field-label">Holding Altitude</label>
@@ -1144,11 +1152,11 @@ function renderTools() {
       </div>
       <div class="field-group">
         <label class="field-label">Fuel Available for Hold (kg)</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 3000" value="${h.fuel}" oninput="holdSet('fuel',this.value)"><span class="field-unit">kg</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="numeric" placeholder="e.g. 3000" value="${h.fuel}" oninput="holdSet('fuel',this.value)"><span class="field-unit">kg</span></div>
       </div>
       <div class="field-group">
         <label class="field-label">Required Hold Time (min) — optional</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 30" value="${h.reqMin}" oninput="holdSet('reqMin',this.value)" style="max-width:110px"><span class="field-unit">min</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="numeric" placeholder="e.g. 30" value="${h.reqMin}" oninput="holdSet('reqMin',this.value)" style="max-width:110px"><span class="field-unit">min</span></div>
       </div>
       ${res ? `<div class="rdm-result fade-up" style="${res.surplus < 0 ? 'background:#fff1f2;border-color:#fca5a5' : ''}">
         <div class="rdm-label">Est. hold fuel flow: ~${res.flow} kg/min</div>
@@ -1172,24 +1180,24 @@ function renderTools() {
       <div style="font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:14px">Enter any one speed plus altitude — the other two are calculated using the ISA model. Edit a field to set it as the reference.</div>
       <div class="field-group">
         <label class="field-label">Flight Level / Altitude</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 350" value="${d.fl}" oninput="iasSet('fl',this.value)" style="max-width:110px"><span class="field-unit">FL</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="numeric" placeholder="e.g. 350" value="${d.fl}" oninput="iasSet('fl',this.value)" style="max-width:110px"><span class="field-unit">FL</span></div>
       </div>
       <div class="field-group">
         <label class="field-label">ISA Deviation (°C) — default 0</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="0" value="${d.isa}" oninput="iasSet('isa',this.value)" style="max-width:110px"><span class="field-unit">°C ISA±</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="numeric" placeholder="0" value="${d.isa}" oninput="iasSet('isa',this.value)" style="max-width:110px"><span class="field-unit">°C ISA±</span></div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
         <div class="field-group" style="margin:0">
           <label class="field-label" style="${d.last==='ias'?'color:var(--red)':''}">IAS (kt)</label>
-          <input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 280" value="${res && d.last!=='ias' ? res.ias : d.ias}" oninput="iasSet('ias',this.value)" style="${d.last==='ias'?'border-color:var(--red)':''}">
+          <input class="field-input" type="text" inputmode="numeric" placeholder="e.g. 280" value="${res && d.last!=='ias' ? res.ias : d.ias}" oninput="iasSet('ias',this.value)" style="${d.last==='ias'?'border-color:var(--red)':''}">
         </div>
         <div class="field-group" style="margin:0">
           <label class="field-label" style="${d.last==='mach'?'color:var(--red)':''}">Mach</label>
-          <input class="field-input" type="number" inputmode="decimal" step="0.001" placeholder="e.g. .785" value="${res && d.last!=='mach' ? res.mach : d.mach}" oninput="iasSet('mach',this.value)" style="${d.last==='mach'?'border-color:var(--red)':''}">
+          <input class="field-input" type="text" inputmode="decimal" step="0.001" placeholder="e.g. .785" value="${res && d.last!=='mach' ? res.mach : d.mach}" oninput="iasSet('mach',this.value)" style="${d.last==='mach'?'border-color:var(--red)':''}">
         </div>
         <div class="field-group" style="margin:0">
           <label class="field-label" style="${d.last==='tas'?'color:var(--red)':''}">TAS (kt)</label>
-          <input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 460" value="${res && d.last!=='tas' ? res.tas : d.tas}" oninput="iasSet('tas',this.value)" style="${d.last==='tas'?'border-color:var(--red)':''}">
+          <input class="field-input" type="text" inputmode="numeric" placeholder="e.g. 460" value="${res && d.last!=='tas' ? res.tas : d.tas}" oninput="iasSet('tas',this.value)" style="${d.last==='tas'?'border-color:var(--red)':''}">
         </div>
       </div>
       ${res ? `<div class="airport-info-box fade-up" style="margin-top:4px">
@@ -1214,12 +1222,12 @@ function renderTools() {
       </div>
       <div class="field-group">
         <label class="field-label">Airport Temperature (OAT °C)</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. -10" value="${c.temp}" oninput="cttSet('temp',this.value)" style="max-width:110px"><span class="field-unit">°C</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="numeric" placeholder="e.g. -10" value="${c.temp}" oninput="cttSet('temp',this.value)" style="max-width:110px"><span class="field-unit">°C</span></div>
         ${c.temp !== '' && !correctionNeeded && parseFloat(c.temp) >= 0 ? '<div class="field-hint">Corrections only required when OAT is below 0°C (ISA −15°C).</div>' : ''}
       </div>
       <div class="field-group">
         <label class="field-label">Height Above Altimeter Setting Source (ft)</label>
-        <div class="field-row"><input class="field-input" type="number" inputmode="numeric" placeholder="e.g. 1000" value="${c.height}" oninput="cttSet('height',this.value)"><span class="field-unit">ft</span></div>
+        <div class="field-row"><input class="field-input" type="text" inputmode="numeric" placeholder="e.g. 1000" value="${c.height}" oninput="cttSet('height',this.value)"><span class="field-unit">ft</span></div>
         <div class="field-hint">Height of the procedure altitude (DA, MDA, step-down fix) above the airport elevation.</div>
       </div>
       ${res ? `<div class="${res.correction > 0 ? 'result-box amber' : 'result-box green'} fade-up" style="margin-top:4px">
@@ -1543,48 +1551,117 @@ const REF_SECTIONS = [
 
   { key:'fc-matrix', title:'📋 Fuel Requirements Matrix', body:`
     <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-    <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px">Scroll horizontally to see all phases →</div>
-    <table class="mx-table" style="min-width:560px">
+    <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px">Scroll horizontally → &nbsp;🟢 Always required &nbsp;🟡 If applicable &nbsp;⬜ N/A</div>
+    <table class="mx-table" style="min-width:720px">
       <thead>
         <tr>
-          <th style="width:80px">Fuel Element</th>
-          <th class="mx-ph" colspan="2">PREFLIGHT</th>
-          <th class="mx-ph" colspan="3">AT DPA</th>
-          <th class="mx-ph">AFTER DPA</th>
+          <th style="width:85px" rowspan="2">Fuel Element</th>
+          <th class="mx-ph" colspan="4">PREFLIGHT (ends @ pushback / eng start)</th>
+          <th class="mx-ph" colspan="4" style="background:#1d4ed8">IN-FLIGHT</th>
         </tr>
         <tr>
-          <th></th>
           <th>To Dest</th>
-          <th>DP1/DPD (to DPA Airport)</th>
-          <th>At DPA (to Dest)</th>
-          <th>At DPA (Dest→Alt)</th>
-          <th>CPE (at landing)</th>
-          <th>After DPA passed</th>
+          <th>DP1</th>
+          <th>DPD</th>
+          <th>CPE</th>
+          <th style="font-size:8px">At DPA<br>(to Dest)<br><span style="font-weight:400;opacity:0.85">FAM 16.10.4.1</span></th>
+          <th style="font-size:8px">At DPA<br>(to DPA Airport)<br><span style="font-weight:400;opacity:0.85">FAM 16.10.1</span></th>
+          <th style="font-size:8px">At DPA<br>(Dest → Alt)</th>
+          <th style="font-size:8px">After DPA<br>(at Landing)</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td style="font-weight:700;text-align:left;background:var(--card)">Airport Cat</td><td>A or B</td><td>A or B</td><td>A, B, C or D</td><td>A, B or C</td><td>A or B</td><td>A or B</td></tr>
-        <tr><td style="font-weight:700;text-align:left;background:var(--card)">Planning Minima</td><td>Determining</td><td>Determining</td><td>Determining / Reduced Determining</td><td>Qualifying</td><td>Landing</td><td>Landing</td></tr>
-        <tr><td style="font-weight:700;text-align:left;background:var(--card)">Trip Fuel</td><td class="mx-req">Planned</td><td class="mx-req">Planned</td><td class="mx-req">Actual</td><td class="mx-req">Actual</td><td class="mx-na">—</td><td class="mx-na">—</td></tr>
-        <tr><td style="font-weight:700;text-align:left;background:var(--card)">Dest Alt Fuel</td><td class="mx-req">If req</td><td class="mx-na">—</td><td class="mx-req">If req</td><td class="mx-na">—</td><td class="mx-na">—</td><td class="mx-na">—</td></tr>
-        <tr><td style="font-weight:700;text-align:left;background:var(--card)">Arrival Allow.</td><td class="mx-req">✓</td><td class="mx-req">✓</td><td class="mx-na">—</td><td class="mx-na">—</td><td class="mx-na">—</td><td class="mx-na">—</td></tr>
-        <tr><td style="font-weight:700;text-align:left;background:var(--card)">Contingency</td><td class="mx-req">✓</td><td class="mx-req">✓</td><td class="mx-na">—</td><td class="mx-na">—</td><td class="mx-req">✓</td><td class="mx-na">—</td></tr>
-        <tr><td style="font-weight:700;text-align:left;background:var(--card)">FRF</td><td class="mx-req">30 min</td><td class="mx-req">15 min</td><td class="mx-req">15 min</td><td class="mx-req">15 min</td><td class="mx-req">30 min</td><td class="mx-req">30 min</td></tr>
         <tr>
-          <td style="font-weight:700;text-align:left;background:var(--card)">Holding</td>
-          <td class="mx-opt" style="font-size:9px">WX/TFC<br>+ Sgl RWY ≥25 min if applic</td>
-          <td class="mx-opt" style="font-size:9px">WX/TFC</td>
-          <td class="mx-opt" style="font-size:9px">WX/TFC<br>+ Sgl RWY ≥25 min if applic</td>
-          <td class="mx-opt" style="font-size:9px">WX only</td>
-          <td class="mx-opt" style="font-size:9px">WX/TFC</td>
-          <td class="mx-opt" style="font-size:9px">WX/TFC</td>
+          <td style="font-weight:700;text-align:left;background:var(--card);font-size:9px">Airport Category</td>
+          <td style="font-size:9px">A or B</td><td style="font-size:9px">A or B</td>
+          <td style="font-size:9px">A, B, C or D</td><td style="font-size:9px">A, B or C</td>
+          <td style="font-size:9px">A or B</td><td style="font-size:9px">A or B</td>
+          <td style="font-size:9px">A or B</td><td class="mx-na" style="font-size:9px">N/A</td>
         </tr>
-        <tr><td style="font-weight:700;text-align:left;background:var(--card)">15 min NDA</td><td class="mx-na">—</td><td class="mx-na">—</td><td class="mx-req" style="font-size:9px">If no Dest Alt + no sgl rwy hold</td><td class="mx-na">—</td><td class="mx-na">—</td><td class="mx-na">—</td></tr>
-        <tr><td style="font-weight:700;text-align:left;background:var(--card)">Req / Pln Add</td><td class="mx-opt">If req</td><td class="mx-opt">If req</td><td class="mx-na">—</td><td class="mx-na">—</td><td class="mx-na">—</td><td class="mx-na">—</td></tr>
+        <tr>
+          <td style="font-weight:700;text-align:left;background:var(--card);font-size:9px">Planning Minima</td>
+          <td style="font-size:9px">Determining</td>
+          <td style="font-size:9px">Qualifying</td>
+          <td style="font-size:9px">Qualifying</td>
+          <td style="font-size:9px">EDTO</td>
+          <td style="font-size:9px">Determining<br>or Reduced<br>Determining</td>
+          <td style="font-size:9px">Determining</td>
+          <td style="font-size:9px">Qualifying*</td>
+          <td style="font-size:9px">Landing</td>
+        </tr>
+        <tr><td colspan="9" style="background:#f1f5f9;font-weight:700;text-align:left;font-size:9px;letter-spacing:0.5px;color:#475569;text-transform:uppercase;padding:3px 6px">FUEL</td></tr>
+        <tr>
+          <td style="font-weight:700;text-align:left;background:var(--card);font-size:9px">Trip Fuel<br><span style="font-weight:400;color:var(--text-muted)">Approach 300kg (1,500' to TD)</span></td>
+          <td class="mx-req" style="font-size:9px">TRIP Planned</td>
+          <td class="mx-req" style="font-size:9px">TRIP Planned</td>
+          <td class="mx-req" style="font-size:9px">TRIP Planned</td>
+          <td class="mx-req" style="font-size:9px">TRIP Planned</td>
+          <td class="mx-req" style="font-size:9px">TRIP Actual<br><span style="font-size:8px">(FMC — STAR &amp; APP loaded)</span></td>
+          <td class="mx-req" style="font-size:9px">TRIP Actual<br><span style="font-size:8px">(FMC — STAR &amp; APP loaded)</span></td>
+          <td class="mx-req" style="font-size:9px">Dest Alt Fuel</td>
+          <td class="mx-na">—</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;text-align:left;background:var(--card);font-size:9px">Arrival Allowance<br><span style="font-weight:400;color:var(--text-muted)">(Descent Manoeuvring)</span></td>
+          <td class="mx-req" style="font-size:9px">✓</td>
+          <td class="mx-na">N/A</td><td class="mx-na">N/A</td><td class="mx-na">N/A</td>
+          <td class="mx-na">N/A</td><td class="mx-na">N/A</td><td class="mx-na">N/A</td><td class="mx-na">N/A</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;text-align:left;background:var(--card);font-size:9px">Contingency<br><span style="font-weight:400;color:var(--text-muted)">(5% of Trip Fuel, 1t Cap)</span></td>
+          <td class="mx-req" style="font-size:9px">✓</td>
+          <td class="mx-na">N/A</td><td class="mx-na">N/A</td><td class="mx-na">N/A</td>
+          <td class="mx-req" style="font-size:9px">✓</td>
+          <td class="mx-req" style="font-size:9px">✓</td>
+          <td class="mx-na">N/A</td><td class="mx-na">N/A</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;text-align:left;background:var(--card);font-size:9px">FRF<br><span style="font-weight:400;color:var(--text-muted)">(30 min @ 1,500')</span></td>
+          <td class="mx-req" style="font-size:9px">30 min</td>
+          <td class="mx-req" style="font-size:9px">15 min</td>
+          <td class="mx-req" style="font-size:9px">15 min</td>
+          <td class="mx-req" style="font-size:9px">15 min</td>
+          <td class="mx-req" style="font-size:9px">30 min</td>
+          <td class="mx-req" style="font-size:9px">30 min</td>
+          <td class="mx-req" style="font-size:9px">30 min</td>
+          <td class="mx-req" style="font-size:9px">30 min</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;text-align:left;background:var(--card);font-size:9px">Holding<br><span style="font-weight:400;color:var(--text-muted)">(Wx, ATC, CDL/MEL @ 20,000')</span></td>
+          <td class="mx-opt" style="font-size:9px">If req<br>WX/TFC</td>
+          <td class="mx-opt" style="font-size:9px">If req<br>Wx Only</td>
+          <td class="mx-opt" style="font-size:9px">If req<br>Wx Only</td>
+          <td class="mx-opt" style="font-size:9px">If req<br>Wx Only</td>
+          <td class="mx-opt" style="font-size:9px"><b>No Dest Alt:</b><br>≥ greater of WX/TFC<br>or 25 min SGL RWY INT (if applic)<br>+ 15 min NDA<br><span style="color:#166534;font-weight:700">— OR —<br>Dest Alternate</span></td>
+          <td class="mx-opt" style="font-size:9px">If req<br>WX/TFC</td>
+          <td class="mx-opt" style="font-size:9px">If req<br>WX/TFC</td>
+          <td class="mx-na">—</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;text-align:left;background:var(--card);font-size:9px">Required Additional<br><span style="font-weight:400;color:var(--text-muted)">(Compulsory — e.g. AV &amp; DP build-ups)</span></td>
+          <td class="mx-req" style="font-size:9px">If req</td>
+          <td class="mx-na">N/A</td><td class="mx-na">N/A</td><td class="mx-na">N/A</td>
+          <td class="mx-na">N/A</td><td class="mx-na">N/A</td><td class="mx-na">N/A</td><td class="mx-na">N/A</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;text-align:left;background:var(--card);font-size:9px">Planned Additional<br><span style="font-weight:400;color:var(--text-muted)">(Non-compulsory — may be offloaded)</span></td>
+          <td class="mx-opt" style="font-size:9px">If req</td>
+          <td class="mx-na">N/A</td><td class="mx-na">N/A</td><td class="mx-na">N/A</td>
+          <td class="mx-na">N/A</td><td class="mx-na">N/A</td><td class="mx-na">N/A</td><td class="mx-na">—</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;text-align:left;background:var(--card);font-size:9px">Dest Alternate</td>
+          <td class="mx-opt" style="font-size:9px">If req</td>
+          <td class="mx-na">N/A</td><td class="mx-na">N/A</td><td class="mx-na">N/A</td>
+          <td class="mx-na" style="font-size:9px">— (see Holding)</td>
+          <td class="mx-na">N/A</td><td class="mx-na">N/A</td><td class="mx-na">N/A</td>
+        </tr>
       </tbody>
     </table>
     </div>
-    <div class="fc-note" style="margin-top:8px">* If Dest &lt; Landing Minima at DPA: Dest Alternate must be ≥ Determining Minima (or RDM). Green = always required. Amber = required if applicable. Grey = not applicable.</div>`},
+    <div class="fc-note" style="margin-top:10px"><b>Not applicable to Isolated Destination Airports.</b> Isolated = nearest alternate &gt;2 hrs endurance. If isolated: requires 90 min holding (satisfies TEMPO/INTER/ATC); NDA not required (covered by 90 min); forecast &gt;QM at ETOU. Fuel = Dest Alt + FRF.</div>
+    <div class="fc-note" style="margin-top:6px">* If Dest &lt; Landing Minima at DPA: Alternate must be ≥ Determining Minima (or RDM) — FAM 16.7.2.2. Note: QM is normally &lt; DM.</div>
+    <div class="fc-note" style="margin-top:6px"><b>Conditional Alternates on OFP (FSO 007/25):</b> = Flt Fuel + Approach Fuel + FRF. No Contingency. Arrival allowance assessed by flight crew.</div>`},
 
   { key:'fc-divert', title:'🔀 Flowchart — Inflight Diversions', body:`
     <div class="fc">

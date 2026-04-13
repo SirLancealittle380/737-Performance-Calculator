@@ -1,7 +1,7 @@
 // Service Worker — 737 Fuel & Alternate Policy Tool
 // Caches the app for offline use after first load
 
-const CACHE_NAME = '737-policy-v1.2';
+const CACHE_NAME = '737-policy-v1.7';
 
 const ASSETS_TO_CACHE = [
   './',
